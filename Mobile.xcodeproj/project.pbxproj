@@ -41,6 +41,7 @@
 		6F00E2DB27CF838000B840AC /* AjoutIngredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F00E2DA27CF838000B840AC /* AjoutIngredView.swift */; };
 		6F00E2DD27CF83E500B840AC /* IngredCatVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F00E2DC27CF83E500B840AC /* IngredCatVM.swift */; };
 		6F00E2DF27CF84B600B840AC /* modifIngredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F00E2DE27CF84B600B840AC /* modifIngredView.swift */; };
+		6FA5397A27D034E60011C76A /* FicheByCatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5397927D034E60011C76A /* FicheByCatView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		6F00E2DA27CF838000B840AC /* AjoutIngredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutIngredView.swift; sourceTree = "<group>"; };
 		6F00E2DC27CF83E500B840AC /* IngredCatVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredCatVM.swift; sourceTree = "<group>"; };
 		6F00E2DE27CF84B600B840AC /* modifIngredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modifIngredView.swift; sourceTree = "<group>"; };
+		6FA5397927D034E60011C76A /* FicheByCatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FicheByCatView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 				6F00E2D827CF828000B840AC /* CreateFicheView.swift */,
 				6F00E2DA27CF838000B840AC /* AjoutIngredView.swift */,
 				6F00E2DE27CF84B600B840AC /* modifIngredView.swift */,
+				6FA5397927D034E60011C76A /* FicheByCatView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				6F00E2CD27CF7BD600B840AC /* listeFichesVM.swift in Sources */,
 				6F00E27F27CF6DA000B840AC /* ContentView.swift in Sources */,
 				6F00E2B227CF6F3000B840AC /* AllergeneCat.swift in Sources */,
+				6FA5397A27D034E60011C76A /* FicheByCatView.swift in Sources */,
 				6F00E2CF27CF7C0C00B840AC /* FicheVM.swift in Sources */,
 				6F00E2C327CF749600B840AC /* listeIngredsVM.swift in Sources */,
 				6F00E27D27CF6DA000B840AC /* MobileApp.swift in Sources */,

@@ -85,7 +85,7 @@ struct StockView: View {
                                             .cornerRadius(50)
                                     }
                                     Button {
-                                            //delete
+                                        ingreds.delete(item)
                                     } label: {
                                         Image(systemName: "x.circle.fill")
                                             .padding(10)

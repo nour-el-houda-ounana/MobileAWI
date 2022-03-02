@@ -87,6 +87,9 @@ class ingredVM : ObservableObject, IngredDelegate {
         
     }
     
+    func delete(_ igVm : ingredVM) {
+        //db.collection("ingredients").document(igVm.model.id)
+    }
     
     
     // : IngredDelegate

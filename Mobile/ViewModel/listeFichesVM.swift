@@ -56,6 +56,17 @@ class listeFichesVM : ObservableObject, FicheDelegate {
         return tabFiches
     }
     
+    // Récupérer liste de Fiche correspondants à la catégorie choisie
+    func searchFicheByCategorie(categorie : String) -> [FicheVM] {
+        var tabFiches : [FicheVM] = []
+        for i in 0..<self.listeFichesVM.count {
+            if (self.listeFichesVM[i].model.categorie.contains(categorie)) {
+                tabFiches.append(self.listeFichesVM[i])
+            }
+        }
+        return tabFiches
+    }
+    
     
     // Récupération des fiches
     func getFiches() {

@@ -110,6 +110,20 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
         }
     }
     
+    func delete(_ igVm : ingredVM) {
+        db.collection("ingredients").document(igVm.model.id).delete { error in
+            if error == nil {
+                DispatchQueue.main.async {
+                    self.liste.removeAll { ingred in
+                        return ingred.model.id == igVm.model.id
+                        
+                    }
+                }
+            }
+            
+        }
+    }
+    
     
     func push(igVm : ingredVM) {
         print("ADDINNG")

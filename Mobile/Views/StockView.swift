@@ -54,7 +54,7 @@ struct StockView: View {
                         }
                     }
                     .padding()
-                    .accentColor(.white)
+                    .accentColor(.black)
                 }
             
             Spacer().frame(height: 10)
@@ -93,8 +93,10 @@ struct StockView: View {
                                             .background(.black)
                                             .cornerRadius(50)
                                     }
+                                Spacer().frame(width : 20)
+                                Text("\(item.model.categorie)").bold()
                                     
-                                }
+                            }
                             VStack(alignment : .leading) {
                                 Text("\(item.model.nom)").font(.title)
                                 Spacer().frame(width:10)

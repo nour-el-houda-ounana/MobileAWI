@@ -11,7 +11,8 @@ import Firebase
 
 struct CategoriesView: View {
 
-    @ObservedObject var CatModel = CatFicheVM()
+    @ObservedObject
+    var CatModel = CatFicheVM()
     
     var body: some View {
         NavigationView {
@@ -22,14 +23,14 @@ struct CategoriesView: View {
                             Image("\(item.image)")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .overlay(alignment: .bottom) {
+                                .overlay(alignment: .center) {
                                     VStack {
-                                        Text("\(item.emoji)").bold()
+                                        //Text("\(item.emoji)").bold()
                                         Text("\(item.type)")
                                             .bold()
                                             .font(.title)
                                             .foregroundColor(.black)
-                                            //.shadow(color: .black, radius: 3, x: 0, y: 0)
+                                            .shadow(color: .black, radius: 3, x: 0, y: 0)
                                             .frame(maxWidth: 136)
                                             .padding()
                                         
@@ -42,7 +43,7 @@ struct CategoriesView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 20,style: .continuous))
                         .shadow(color: Color.black.opacity(0.3), radius: 15, x: 0, y: 0)
                                                 
-                        .navigationTitle("Catégories")
+                        .navigationTitle("🍽️ Catégories")
                     }
                     
                 }

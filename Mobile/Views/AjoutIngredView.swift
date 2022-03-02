@@ -107,7 +107,7 @@ struct AjoutIngredView: View {
                 }
                 ToolbarItem {
                     Button {
-                        listIngred.push(igVm: ingredVM(from: Ingredient(nom: ingredient, PU: Double(prixUnitaire), unite: unite.description, quantite: quantite, allergene: isAllergene, typeAllergene: typeAllergene)))
+                        listIngred.push(igVm: ingredVM(from: Ingredient(nom: ingredient, PU: Double(prixUnitaire), unite: unite.description, quantite: quantite, allergene: isAllergene, typeAllergene: typeAllergene, categorie: categorie)))
                         
                         dismiss()
                         

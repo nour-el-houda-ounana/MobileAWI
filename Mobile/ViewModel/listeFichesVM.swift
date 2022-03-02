@@ -9,8 +9,8 @@ import Foundation
 import Firebase
 
 
-class listeFichesVM : ObservableObject {
-    
+class listeFichesVM : ObservableObject, FicheDelegate {
+  
     @Published
     var listeFichesVM = [FicheVM]()
     
@@ -39,8 +39,9 @@ class listeFichesVM : ObservableObject {
     }
     
     func push(fiche : FicheVM) {
-        listeFichesVM.append(fiche)
-        fiche.addFiche(ficheVm : fiche)
+        fiche.model.add(delegate:self)
+        fiche.addFiche(ficheVm: fiche)
+        self.listeFichesVM.append(fiche)
     }
     
     
@@ -77,5 +78,30 @@ class listeFichesVM : ObservableObject {
         }
     }
     
+    
+    //Delegate
+    func changed(intitule: String) {
+        return
+    }
+    
+    func changed(responsable: String) {
+        return
+    }
+    
+    func changed(couverts: Int) {
+        return
+    }
+    
+    func changed(categorie: String) {
+        return
+    }
+    
+    func changed(materielSpes: String) {
+        return
+    }
+    
+    func changed(materielDress: String) {
+        return
+    }
     
 }

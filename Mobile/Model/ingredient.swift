@@ -13,6 +13,7 @@ protocol IngredDelegate : AnyObject {
     func changed(quantite: Double)
     func changed(allergene: Bool)
     func changed(typeAllergene : String)
+    func changed(categorie : String)
 }
 
 class Ingredient : Identifiable {
@@ -53,20 +54,28 @@ class Ingredient : Identifiable {
         }
      }
 
-    var typeAllergene : String {  //type{
+    var typeAllergene : String {  //type
         didSet{
            guard typeAllergene != oldValue else { return }
            for d in delegates{ d.changed(typeAllergene: typeAllergene) }
         }
      }
+    
+    var categorie : String {
+        didSet {
+            guard categorie != oldValue else { return }
+            for d in delegates {d.changed(categorie: categorie)}
+        }
+    }
 
-    init(nom : String, PU : Double, unite: String, quantite:Double,allergene:Bool,typeAllergene : String){
+    init(nom : String, PU : Double, unite: String, quantite:Double,allergene:Bool,typeAllergene : String, categorie : String){
         self.nom = nom
         self.PU = PU
         self.unite = unite
         self.quantite = quantite
         self.allergene = allergene
         self.typeAllergene = typeAllergene
+        self.categorie = categorie
     }
     
     

@@ -75,7 +75,7 @@ struct CreateFicheView: View {
 
                 
             }
-            .navigationTitle("Créez votre fiche")
+            .navigationTitle("➕ Créez votre fiche")
             .padding()
                        
         }

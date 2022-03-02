@@ -115,5 +115,9 @@ class ingredVM : ObservableObject, IngredDelegate {
         return
     }
     
+    func changed(categorie : String) {
+        return
+    }
+    
     
 }

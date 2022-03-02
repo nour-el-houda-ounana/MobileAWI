@@ -71,16 +71,13 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
     
     
     init() {
-        //self.liste = [ingredVM]()
-        //getIngreds()
-        
         db.collection("ingredients").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
                     //Update the list property in the main thread
                     DispatchQueue.main.async {
                         self.liste = snapshot.documents.map{ doc in
-                            return ingredVM(from :Ingredient(nom: doc["nom"] as? String ?? "", PU: doc["PU"] as? Double ?? 0, unite:  doc["unite"] as? String ?? "", quantite: doc["quantite"] as? Double ?? 0, allergene: doc["allergene"] as? Bool ?? false, typeAllergene: doc["CatAllergene"] as? String ?? ""))
+                            return ingredVM(from :Ingredient(nom: doc["nom"] as? String ?? "", PU: doc["PU"] as? Double ?? 0, unite:  doc["unite"] as? String ?? "", quantite: doc["quantite"] as? Double ?? 0, allergene: doc["allergene"] as? Bool ?? false, typeAllergene: doc["CatAllergene"] as? String ?? "", categorie: doc["categorie"] as? String ?? ""))
                             
                         }
                     }
@@ -101,7 +98,7 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
                     //Update the list property in the main thread
                     DispatchQueue.main.async {
                         self.liste = snapshot.documents.map{ doc in
-                            return ingredVM(from :Ingredient(nom: doc["nom"] as? String ?? "", PU: doc["PU"] as? Double ?? 0, unite:  doc["unite"] as? String ?? "", quantite: doc["quantite"] as? Double ?? 0, allergene: doc["allergene"] as? Bool ?? false, typeAllergene: doc["CatAllergene"] as? String ?? ""))
+                            return ingredVM(from :Ingredient(nom: doc["nom"] as? String ?? "", PU: doc["PU"] as? Double ?? 0, unite:  doc["unite"] as? String ?? "", quantite: doc["quantite"] as? Double ?? 0, allergene: doc["allergene"] as? Bool ?? false, typeAllergene: doc["CatAllergene"] as? String ?? "", categorie: doc["categorie"] as? String ?? ""))
                             
                         }
                     }
@@ -114,7 +111,6 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
     }
     
     
-    
     func push(igVm : ingredVM) {
         print("ADDINNG")
         igVm.model.add(delegate: self)
@@ -123,9 +119,6 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
         print("INDERTED")
         self.intent = .valuePushed(igVm)
 
-        //print("GET METHOOD")
-        //getIngreds()
-        print("FINIIIISH")
     }
     
     //Delete
@@ -156,6 +149,10 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
     }
     
     func changed(typeAllergene: String) {
+        return
+    }
+    
+    func changed(categorie: String) {
         return
     }
 

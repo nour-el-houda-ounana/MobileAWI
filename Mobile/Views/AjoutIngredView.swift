@@ -12,12 +12,8 @@ struct AjoutIngredView: View {
     @ObservedObject
     var listIngred = listeIngredsVM()
     
-    
     @State
     var catIngre = IngredCatVM()
-    
-    //@State var catAller = CatAllergVM()
-    
     
     let formatter: NumberFormatter = {
       let formatter = NumberFormatter()
@@ -31,7 +27,6 @@ struct AjoutIngredView: View {
     @State var quantite : Double = 0
     @State var isAllergene : Bool = false
     @State var typeAllergene : String = ""
-    
     @State var categorie : String = ""
     
     @Environment(\.dismiss) var dismiss
@@ -41,9 +36,6 @@ struct AjoutIngredView: View {
             Form {
                 Section(header: Text("Catégorie de l'ingrédient")) {
                     Picker("Catégories", selection: $categorie){
-                        /*ForEach(catIngre.listCatIngred) { category in
-                            Text("\(category.type.description)")
-                        }*/
                         Text("Épicerie").tag(catIngredVM.Epicerie.rawValue)
                         Text("Poisson - Crustacés").tag(catIngredVM.Poisson.rawValue)
                         Text("Crémerie").tag(catIngredVM.Cremerie.rawValue)
@@ -59,7 +51,6 @@ struct AjoutIngredView: View {
                 
                 Section(header: Text("Prix unitaire")) {
                     TextField("Prix de l'ingrédient",value: $prixUnitaire, formatter: formatter).textFieldStyle(RoundedBorderTextFieldStyle());
-                    
                 }
                 
                 Section(header: Text("Quantité")) {
@@ -86,15 +77,11 @@ struct AjoutIngredView: View {
                 if isAllergene {
                     Section(header: Text("type allergene")) {
                         Picker("Catégories", selection: $typeAllergene){
-                            /*ForEach(catAller.listCatAller) { category in
-                                Text("\(category.nomAllergene.description)")
-                            }*/
                             Text("Crustacés").tag(catAllergene.Crustasés.rawValue)
                             Text("Arachide").tag(catAllergene.Arachide.rawValue)
                             Text("Céleri").tag(catAllergene.Céleri.rawValue)
                             Text("Lait").tag(catAllergene.Lait.rawValue)
                             Text("Lupin").tag(catAllergene.Lupin.rawValue)
-                            
                         }
                         .pickerStyle(.menu)
                     }

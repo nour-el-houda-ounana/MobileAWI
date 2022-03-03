@@ -58,6 +58,9 @@ struct listeFichesView: View {
                         
                     }
                 }
+                .onAppear() {
+                    self.listeFiches.getFiches()
+                }
             }
             .padding(.top)
         }

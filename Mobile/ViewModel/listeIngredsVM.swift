@@ -17,6 +17,7 @@ enum IngredListViewModelIntent : CustomStringConvertible{
    case valuePushed(ingredVM)
    case valueAppending(ingredVM)
    case valueAppended(ingredVM)
+   case valueDeleted(ingredVM)
    
    var description: String{
       switch self {
@@ -27,6 +28,7 @@ enum IngredListViewModelIntent : CustomStringConvertible{
          case .valuePushed( _)         : return "ingredient pushed"
          case .valueAppending( _)      : return "ingredient to be appended"
          case .valueAppended( _)       : return "ingredient appended"
+         case .valueDeleted( _)        : return "ingredient supprimé"
       }
    }
    
@@ -71,6 +73,10 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
     
     
     init() {
+        getIngreds()
+    }
+    
+    func getIngreds(){
         db.collection("ingredients").getDocuments { snapshot, error in
             if error == nil {
                 if let snapshot = snapshot {
@@ -78,7 +84,6 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
                     DispatchQueue.main.async {
                         self.liste = snapshot.documents.map{ doc in
                             return ingredVM(from :Ingredient(nom: doc["nom"] as? String ?? "", PU: doc["PU"] as? Double ?? 0, unite:  doc["unite"] as? String ?? "", quantite: doc["quantite"] as? Double ?? 0, allergene: doc["allergene"] as? Bool ?? false, typeAllergene: doc["CatAllergene"] as? String ?? "", categorie: doc["categorie"] as? String ?? ""))
-                            
                         }
                     }
                 }
@@ -90,54 +95,21 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
         
     }
     
-    // Lire données de Document
-    func getIngreds() {
-        db.collection("ingredients").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    //Update the list property in the main thread
-                    DispatchQueue.main.async {
-                        self.liste = snapshot.documents.map{ doc in
-                            return ingredVM(from :Ingredient(nom: doc["nom"] as? String ?? "", PU: doc["PU"] as? Double ?? 0, unite:  doc["unite"] as? String ?? "", quantite: doc["quantite"] as? Double ?? 0, allergene: doc["allergene"] as? Bool ?? false, typeAllergene: doc["CatAllergene"] as? String ?? "", categorie: doc["categorie"] as? String ?? ""))
-                            
-                        }
-                    }
-                }
-            }
-            else{
-                //Handeling the error
-            }
-        }
-    }
     
-    func delete(_ igVm : ingredVM) {
-        db.collection("ingredients").document(igVm.model.id).delete { error in
-            if error == nil {
-                DispatchQueue.main.async {
-                    self.liste.removeAll { ingred in
-                        return ingred.model.id == igVm.model.id
-                        
-                    }
-                }
-            }
-            
-        }
+    func delete(igVm : ingredVM) {
+        igVm.model.remove(delegate: self)
+        igVm.delete(igVm)
+        self.liste = self.liste.filter { $0 !== igVm }
+        self.intent = .valueDeleted(igVm)
     }
     
     
     func push(igVm : ingredVM) {
-        print("ADDINNG")
         igVm.model.add(delegate: self)
         igVm.add(igVm)
         self.liste.append(igVm)
-        print("INDERTED")
         self.intent = .valuePushed(igVm)
 
-    }
-    
-    //Delete
-    func delete(igVm : ingredVM) {
-        
     }
     
     

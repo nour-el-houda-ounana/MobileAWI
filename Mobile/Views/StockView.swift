@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StockView: View {
     
-    @StateObject
+    @ObservedObject
     var ingreds = listeIngredsVM()
 
     @State
@@ -18,7 +18,8 @@ struct StockView: View {
     @State
     private var update = false
     
-    @State var chercher = ""
+    @State
+    var chercher = ""
     
     
    let NbrFormatter: NumberFormatter = {
@@ -85,7 +86,7 @@ struct StockView: View {
                                             .cornerRadius(50)
                                     }
                                     Button {
-                                        ingreds.delete(item)
+                                        ingreds.delete(igVm :item)
                                     } label: {
                                         Image(systemName: "x.circle.fill")
                                             .padding(10)

@@ -60,7 +60,18 @@ struct CreateFicheView: View {
                     
                 }
                 
-                NavigationLink(destination: HomeView(), label: {
+                Button("Valider"){
+                    listeFiches.push(fiche: FicheVM(from: Fiche(intitule: intitule, responsable: responsable, couverts: couverts, categorie: categorie, materielSpes: matSpes, materielDress: matDress)))
+                    
+                }
+                .frame(width: 140, height: 30, alignment: .center)
+                .foregroundColor(.orange)
+                .background(.black)
+                .cornerRadius(16)
+                .disabled(intitule.isEmpty)
+                
+                
+                /*NavigationLink(destination: HomeView(), label: {
                          Button("Valider"){
                              listeFiches.push(fiche: FicheVM(from: Fiche(intitule: intitule, responsable: responsable, couverts: couverts, categorie: categorie, materielSpes: matSpes, materielDress: matDress)))
                              
@@ -71,7 +82,7 @@ struct CreateFicheView: View {
                          .cornerRadius(16)
                          .disabled(intitule.isEmpty)
                      
-                })
+                })*/
 
                 
             }

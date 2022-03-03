@@ -34,7 +34,8 @@ struct detailFicheView: View {
             
             VStack(alignment: .trailing) {
                 Button {
-                        //delete
+                        //imprimer
+                    
                 } label: {
                     Image(systemName: "printer.filled.and.paper")
                         .padding(10)

@@ -10,37 +10,59 @@ import Firebase
         
 struct CoutsView : View {
     
-    @State var activer : Bool = false
+    @StateObject
+    var listeCouts : coutsVM = coutsVM()
     
+    @State
+    var activer : Bool = false
+    
+    @State
+    var personnel : Double = 0
+    
+    @State
+    var fluide : Double = 0
+    
+    @State
+    var coefficient : Int = 0
+    
+    var alwaysDisable : Bool = true
+    
+        
     var body: some View {
             
         NavigationView {
             VStack {
                 VStack(alignment : .leading) {
-                            Text("Cout de personnel : ")
-                            Text("Couts de fluide : ")
-                            Text("Coefficient multiplicateur : ")
-                            Toggle(isOn: $activer) {
-                                Text("Cout Assaisonement ( 5% ) ")
-                            }
-                        }
-                        .padding(20)
-                        
-                        Spacer().frame(height : 60)
-                        
-                        Button("Modifier"){
-                            //fiche.addFiche(intitule: intitule, responsable: responsable, couverts: couverts, materielSpec: matSpes, materielDress: matDress)
-                                //NavigationLink
-                        }
-                        .frame(width: 140, height: 30, alignment: .center)
-                        .foregroundColor(.orange)
-                        .background(.black)
-                        .cornerRadius(16)
-                        
+                    Text("Cout de personnel : \(personnel,specifier: "%.2f") €/h")
+                    Text("Couts de fluide : \(fluide,specifier: "%.2f") €/MH")
+                    Text("Coefficient multiplicateur : \(coefficient)% ")
+                    Toggle(isOn: $activer) {
+                        Text("Cout Assaisonement ( 5% ) ")
                     }
-                    .navigationTitle("💰 Gestion des couts")
-                   
+                    .disabled(alwaysDisable == true)
+                }
+                .padding(20)
                     
+                Spacer().frame(height : 60)
+                        
+                Button("Modifier"){
+                    //Modification
+                    
+                }
+                .frame(width: 140, height: 30, alignment: .center)
+                .foregroundColor(.orange)
+                .background(.black)
+                .cornerRadius(16)
+                        
+            }
+            .navigationTitle("💰 Gestion des couts")
+                    
+        }
+        .onAppear {
+            self.personnel = self.listeCouts.model[0].personnel
+            self.fluide = self.listeCouts.model[0].fluide
+            self.coefficient = self.listeCouts.model[0].coeffMultip
+            self.activer = self.listeCouts.model[0].assaisonement
         }
     }
 }

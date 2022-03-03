@@ -39,11 +39,7 @@ struct ContentView: View {
                 .tabItem{
                     Label("Commande", systemImage: "barcode.viewfinder")
                 }
-            
-            FicheByCatView()
-                .tabItem {
-                    Label("Cat", systemImage: "x")
-                }
+
         }
         
     }

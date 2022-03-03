@@ -27,6 +27,9 @@ struct CoutsView : View {
     
     var alwaysDisable : Bool = true
     
+    @State
+    var update = false
+    
         
     var body: some View {
             
@@ -47,6 +50,7 @@ struct CoutsView : View {
                         
                 Button("Modifier"){
                     //Modification
+                    update = true
                     
                 }
                 .frame(width: 140, height: 30, alignment: .center)
@@ -56,6 +60,9 @@ struct CoutsView : View {
                         
             }
             .navigationTitle("💰 Gestion des couts")
+            .sheet(isPresented: $update) {
+                updateCoutView()
+            }
                     
         }
         .onAppear {

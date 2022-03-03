@@ -42,3 +42,13 @@ class IngredCatVM : ObservableObject {
     }
     
 }
+
+enum catIngredVM : String {
+    
+    case Poisson = "Poisson - Crustacés"
+    case Cremerie = "Crémerie"
+    case viande = "Viandes - Volailles"
+    case Epicerie = "Épicerie"
+    case FruitLegume = "Fruits - Légumes"
+    
+}

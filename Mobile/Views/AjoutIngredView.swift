@@ -41,9 +41,14 @@ struct AjoutIngredView: View {
             Form {
                 Section(header: Text("Catégorie de l'ingrédient")) {
                     Picker("Catégories", selection: $categorie){
-                        ForEach(catIngre.listCatIngred) { category in
+                        /*ForEach(catIngre.listCatIngred) { category in
                             Text("\(category.type.description)")
-                        }
+                        }*/
+                        Text("Épicerie").tag(catIngredVM.Epicerie.rawValue)
+                        Text("Poisson - Crustacés").tag(catIngredVM.Poisson.rawValue)
+                        Text("Crémerie").tag(catIngredVM.Cremerie.rawValue)
+                        Text("Viandes - Volailles").tag(catIngredVM.viande.rawValue)
+                        Text("Fruits - Légumes").tag(catIngredVM.FruitLegume.rawValue)
                     }
                     .pickerStyle(.menu)
                 }

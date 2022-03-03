@@ -83,7 +83,7 @@ class ingredVM : ObservableObject, IngredDelegate {
         // Ajouter à la Collection
         db.collection("ingredients").addDocument(data: ["nom": igVm.model.nom, "PU": igVm.model.PU,
                                                         "unite": igVm.model.unite, "quantite": igVm.model.quantite,
-                                                        "allergene" : igVm.model.allergene, "CatAllergene": igVm.model.typeAllergene ])
+                                                        "allergene" : igVm.model.allergene, "CatAllergene": igVm.model.typeAllergene, "categorie": igVm.model.categorie ])
         
     }
     

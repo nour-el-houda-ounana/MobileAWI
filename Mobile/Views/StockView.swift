@@ -99,13 +99,18 @@ struct StockView: View {
                                     
                             }
                             VStack(alignment : .leading) {
-                                Text("\(item.model.nom)").font(.title)
+                                if(item.model.allergene == true){
+                                    Text("\(item.model.nom) *").font(.title)
+                                    
+                                }else {
+                                    Text("\(item.model.nom)").font(.title)
+                                }
+                                
                                 Spacer().frame(width:10)
                                 Text("Quantité : \(item.model.quantite) \(item.model.unite)")
                                 Text("PU : \(item.model.PU) euros")
                                 if(item.model.allergene.description == "true"){
-                                    Text("Allergene : \(item.model.allergene.description)")
-                                    Text("Type Allergene : \(item.model.typeAllergene)")
+                                    Text("Type Allergene : \(item.model.typeAllergene)").bold().foregroundColor(.red)
                                 }
                             }
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 125))

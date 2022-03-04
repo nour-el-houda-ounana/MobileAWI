@@ -15,7 +15,6 @@ struct Allergene : Identifiable {
 
 }
 
-
 enum catAllergene : String {
     
     case Crustasés = "Crustasés"

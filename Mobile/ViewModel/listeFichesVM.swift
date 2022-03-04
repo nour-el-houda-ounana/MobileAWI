@@ -26,6 +26,12 @@ class listeFichesVM : ObservableObject, FicheDelegate {
         self.listeFichesVM.append(fiche)
     }
     
+    //Ajouter une étape à une fiche
+    func addEtape(idFiche: Int, etape : EtapeFiche) {
+        let ficheVM = self.listeFichesVM[idFiche]
+        ficheVM.addEtapeToFiche(ficheVM, etape: etape)
+    }
+    
     
     // Chercher la liste par Intitulé, responsable ou catégorie
     func searchFicheByName(nom : String) -> [FicheVM] {

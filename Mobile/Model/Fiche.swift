@@ -52,6 +52,8 @@ class Fiche : Identifiable {
     
     //var etape : [{description, [ingredients], [qtt]}]
     
+    var etape : [String]?
+    
     var materielSpes : String  {
         didSet{
            guard materielSpes != oldValue else { return }
@@ -66,11 +68,12 @@ class Fiche : Identifiable {
         }
      }
     
-    init(intitule : String, responsable : String, couverts: Int, categorie: String, materielSpes: String, materielDress : String){
+    init(intitule : String, responsable : String, couverts: Int, categorie: String, etape: [String] = [], materielSpes: String, materielDress : String){
         self.intitule = intitule
         self.responsable = responsable
         self.couverts = couverts
         self.categorie = categorie
+        self.etape = etape
         self.materielSpes = materielSpes
         self.materielDress = materielDress
     }

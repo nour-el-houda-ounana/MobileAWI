@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct detailFicheView: View {
-    
-    //@ObservedObject var fiche : FicheVM
-    
+        
     @ObservedObject
     var fiches : listeFichesVM
     
@@ -33,17 +31,42 @@ struct detailFicheView: View {
             Spacer().frame(height: 25)
             
             VStack(alignment: .trailing) {
-                Button {
-                        //imprimer
+                HStack {
+                    Button {
+                            //modifier
+                        
+                    } label: {
+                        Image(systemName: "pencil.circle.fill")
+                            .padding(10)
+                            .foregroundColor(.white)
+                            .background(.black)
+                            .cornerRadius(50)
+                    }
+                    Spacer().frame(width: 50)
                     
-                } label: {
-                    Image(systemName: "printer.filled.and.paper")
-                        .padding(10)
-                        .foregroundColor(.white)
-                        .background(.black)
-                        .cornerRadius(50)
+                    Button {
+                            //imprimer
+                        
+                    } label: {
+                        Image(systemName: "printer.filled.and.paper")
+                            .padding(10)
+                            .foregroundColor(.white)
+                            .background(.black)
+                            .cornerRadius(50)
+                    }
+                    Spacer().frame(width: 50)
+
+                    Button {
+                            //supprimer
+                        fiches.listeFichesVM[index].deleteFiche()
+                    } label: {
+                        Image(systemName: "minus.circle.fill")
+                            .padding(10)
+                            .foregroundColor(.white)
+                            .background(.black)
+                            .cornerRadius(50)
+                    }
                 }
-                
             }
                         
             VStack (alignment: .leading){
@@ -63,13 +86,11 @@ struct detailFicheView: View {
                     Text("\(fiches.listeFichesVM[index].model.couverts)")
                     
                 }
-                /*HStack {
-                    Text("Nombre de couverts : ")
-                            .fontWeight(.medium)
-                            .padding(.vertical,8)
-                            .font(.title3)
-                    Text("\(fiches.listeFichesVM[index].model.couverts)")
-                }*/
+                
+                Spacer().frame(height : 30)
+                NavigationLink(destination: EtapeCreationView(fiches: fiches, index: index)) {
+                    Text("Ajouter une étape")
+                }
                 
                 if (fiches.listeFichesVM[index].model.materielDress != "") {
                     HStack {

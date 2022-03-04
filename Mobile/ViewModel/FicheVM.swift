@@ -6,6 +6,7 @@
 //
 import Foundation
 import Firebase
+import FirebaseFirestore
 
 enum FicheVMIntent : CustomStringConvertible{
    case ready
@@ -36,7 +37,6 @@ enum FicheVMIntent : CustomStringConvertible{
 
 class FicheVM : ObservableObject, FicheDelegate {
   
-    
     var model : Fiche
     
     private var db =  Firestore.firestore()
@@ -73,7 +73,6 @@ class FicheVM : ObservableObject, FicheDelegate {
     var materielDress : String { return model.materielDress }
     
     
-    
     init(from fiche : Fiche) {
         self.model = fiche
         self.intitule = model.intitule
@@ -82,15 +81,27 @@ class FicheVM : ObservableObject, FicheDelegate {
     
     func addFiche(_ ficheVm : FicheVM) {
         db.collection("Fiche").addDocument(data: ["intitule": ficheVm.model.intitule, "responsable" : ficheVm.model.responsable,
-                                                      "nbrCouverts": ficheVm.model.couverts ,"categorie" : ficheVm.model.categorie, "materielSpes": ficheVm.model.materielSpes,
+                                                  "nbrCouverts": ficheVm.model.couverts ,"categorie" : ficheVm.model.categorie,"etape": [] , "materielSpes": ficheVm.model.materielSpes,
                                                       "materielDress": ficheVm.model.materielDress])
-            
     }
     
+    func addEtapeToFiche(_ ficheVm : FicheVM, etape : EtapeFiche) {
+        let Array = ["titreEtape" : etape.nom, "description" : etape.description , "temps" : etape.temps] as [String : Any]
+        
+        db.collection("Fiche").document(ficheVm.model.id).updateData(["etape" : FieldValue.arrayUnion([Array])]) { (error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+        }
+        
+    }
     
     //update Fiche
     
     //delete Fiche
+    func deleteFiche() {
+            db.collection("Fiche").document(model.id).delete()
+    }
     
     
     // Delegate

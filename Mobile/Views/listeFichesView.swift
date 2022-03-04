@@ -23,12 +23,9 @@ struct listeFichesView: View {
     }
     
     var body: some View {
-
         VStack {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 15)]){
                 ForEach(Array(searchListe.enumerated()), id: \.element.model.id) { index, item in
-                
-                //ForEach(Array(listeFiches.listeFichesVM.enumerated()), id: \.element.model.id) { index, item in
                     NavigationLink(destination: detailFicheView(fiches: listeFiches, index: index)) {
                         VStack {
                             ZStack(alignment: .bottom) {
@@ -55,7 +52,6 @@ struct listeFichesView: View {
                         }
                         .navigationTitle("📄 Fiches Techniques")
                         .searchable(text: $chercher, prompt: "Chercher la fiche")
-                        
                     }
                 }
                 .onAppear() {

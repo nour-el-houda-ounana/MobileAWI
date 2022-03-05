@@ -7,8 +7,10 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
+import Combine
 
-enum FicheVMIntent : CustomStringConvertible{
+
+enum FicheVMIntent : CustomStringConvertible, Equatable {
    case ready
    case nameChanging(String)
    case nameChanged(String)
@@ -21,19 +23,7 @@ enum FicheVMIntent : CustomStringConvertible{
       }
    }
 
-   // MARK: -
-   // MARK: Intents
-   
-   mutating func endOfIntent(){
-      self = .ready
-   }
-
-   mutating func intentToChange(name: String){
-         self = .nameChanging(name)
-   }
-
 }
-
 
 class FicheVM : ObservableObject, FicheDelegate {
   
@@ -44,24 +34,23 @@ class FicheVM : ObservableObject, FicheDelegate {
     @Published private(set) var intent : FicheVMIntent = .ready   {
            didSet{
              switch self.intent{
-    //            case let .nameChanging(name):
-    //               self.name = name
+               // case let .nameChanging(name):
+                 //  self.intitule = name
                 default:
                    return
              }
           }
-                                                                    
        }
-    
+        
     @Published var intitule : String {
         didSet {
             switch self.intent {
-            case .nameChanging(let nvNom):
-                if model.intitule != nvNom {
-                    model.intitule = nvNom
-                }
-            default:
-                self.intitule = oldValue
+                //case .nameChanging(let nvNom):
+                  //  if model.intitule != nvNom {
+                    //    model.intitule = nvNom
+                    //}
+                default:
+                    self.intitule = oldValue
             }
         }
     }
@@ -81,28 +70,28 @@ class FicheVM : ObservableObject, FicheDelegate {
     
     func addFiche(_ ficheVm : FicheVM) {
         db.collection("Fiche").addDocument(data: ["intitule": ficheVm.model.intitule, "responsable" : ficheVm.model.responsable,
-                                                  "nbrCouverts": ficheVm.model.couverts ,"categorie" : ficheVm.model.categorie,"etape": [] , "materielSpes": ficheVm.model.materielSpes,
-                                                      "materielDress": ficheVm.model.materielDress])
+                                                  "nbrCouverts": ficheVm.model.couverts ,"categorie" : ficheVm.model.categorie,"ingredients" : ficheVm.model.ingredients,"description": ficheVm.model.description, "etape": [] , "materielSpes": ficheVm.model.materielSpes,
+                                                  "materielDress": ficheVm.model.materielDress, "temps" : ficheVm.model.tempsTotal])
     }
     
-    func addEtapeToFiche(_ ficheVm : FicheVM, etape : EtapeFiche) {
+    func addEtapeToFiche(_ etape : EtapeFiche) {
         let Array = ["titreEtape" : etape.nom, "description" : etape.description , "temps" : etape.temps] as [String : Any]
-        
-        db.collection("Fiche").document(ficheVm.model.id).updateData(["etape" : FieldValue.arrayUnion([Array])]) { (error) in
+        db.collection("Fiche").document(model.id).updateData(["etape" : FieldValue.arrayUnion([Array])]) { (error) in
                 if let error = error {
                     print(error.localizedDescription)
                 }
         }
-        
     }
     
     //update Fiche
-    
-    //delete Fiche
-    func deleteFiche() {
-            db.collection("Fiche").document(model.id).delete()
+    func updateName(name : String){
+        db.collection("Fiche").document(self.model.id).setData(["intitule" : name], merge: true)
     }
     
+    //delete Fiche
+    func deleteFiche(_ ficheVm : FicheVM) {
+        db.collection("Fiche").document(ficheVm.model.id).delete()
+    }
     
     // Delegate
     func changed(intitule: String) {

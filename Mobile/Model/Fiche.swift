@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 protocol FicheDelegate : AnyObject {
     func changed(intitule: String)
@@ -17,7 +18,6 @@ protocol FicheDelegate : AnyObject {
 }
 
 class Fiche : Identifiable {
-    
 
     var id : String = UUID().uuidString
     
@@ -49,10 +49,13 @@ class Fiche : Identifiable {
         }
      }
     
-    
     //var etape : [{description, [ingredients], [qtt]}]
     
-    var etape : [String]?
+    var ingredients : [String]
+    var description : String
+    var tempsTotal : Int
+    
+    var etape : [String]
     
     var materielSpes : String  {
         didSet{
@@ -68,14 +71,17 @@ class Fiche : Identifiable {
         }
      }
     
-    init(intitule : String, responsable : String, couverts: Int, categorie: String, etape: [String] = [], materielSpes: String, materielDress : String){
+    init(intitule : String, responsable : String, couverts: Int, categorie: String,ingredients: [String], description : String, etape: [String] = [], materielSpes: String, materielDress : String, temps : Int){
         self.intitule = intitule
         self.responsable = responsable
         self.couverts = couverts
         self.categorie = categorie
+        self.ingredients = ingredients
+        self.description = description
         self.etape = etape
         self.materielSpes = materielSpes
         self.materielDress = materielDress
+        self.tempsTotal = temps
     }
     
     //Delegate

@@ -32,16 +32,14 @@ struct detailFicheView: View {
             
             VStack(alignment: .trailing) {
                 HStack {
-                    Button {
-                            //modifier
-                        
-                    } label: {
+                    NavigationLink(destination: UpdateFicheView(liste: fiches, index: index)) {
                         Image(systemName: "pencil.circle.fill")
                             .padding(10)
                             .foregroundColor(.white)
                             .background(.black)
                             .cornerRadius(50)
                     }
+                    
                     Spacer().frame(width: 50)
                     
                     Button {
@@ -58,7 +56,7 @@ struct detailFicheView: View {
 
                     Button {
                             //supprimer
-                        fiches.listeFichesVM[index].deleteFiche()
+                        fiches.deleteFiche(idFiche: index)
                     } label: {
                         Image(systemName: "minus.circle.fill")
                             .padding(10)
@@ -86,6 +84,44 @@ struct detailFicheView: View {
                     Text("\(fiches.listeFichesVM[index].model.couverts)")
                     
                 }
+                
+                if !fiches.listeFichesVM[index].model.description.isEmpty {
+                    Text("Etape de base : ")
+                            .fontWeight(.medium)
+                            .padding(.vertical,8)
+                            .font(.title3)
+                    
+                    VStack(alignment : .leading) {
+                        ZStack (alignment: .trailing){
+                            Text("\(fiches.listeFichesVM[index].model.tempsTotal) min").padding().background(
+                                Circle()
+                                    .stroke(Color.orange, lineWidth: 3)
+                            ).frame(width: 100, height: 100, alignment: .center)
+                        }
+                        .frame(width: 40, height: 40)
+                        
+                        Text("Ingrédients de base :").font(.headline).foregroundColor(Color.orange).shadow(color: .black, radius: 2)
+                        ForEach(fiches.listeFichesVM[index].model.ingredients, id : \.self) { ing in
+                            Text(ing)
+                        }
+                        
+                        Spacer().frame(height: 20)
+                        Text("Description :").font(.headline).foregroundColor(Color.orange).shadow(color: .black, radius: 2)
+                        Text("\(fiches.listeFichesVM[index].model.description)")
+                    }
+                    .padding(12)
+                    .frame(width : UIScreen.main.bounds.width-15)
+                    .background(.gray)
+                    .cornerRadius(20)
+                }
+                
+                //Lister les étapes de plus
+                List {
+                    
+                }
+                
+                
+                //
                 
                 Spacer().frame(height : 30)
                 NavigationLink(destination: EtapeCreationView(fiches: fiches, index: index)) {

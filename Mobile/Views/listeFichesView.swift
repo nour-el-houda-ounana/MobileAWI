@@ -45,7 +45,6 @@ struct listeFichesView: View {
                                 .foregroundColor(.white)
                                 .background(.ultraThinMaterial)
                                 .cornerRadius(20)
-                                
                             }
                             .frame(width: 180, height: 250)
                             .shadow(radius: 3)

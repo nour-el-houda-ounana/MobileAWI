@@ -29,9 +29,13 @@ class listeFichesVM : ObservableObject, FicheDelegate {
     //Ajouter une étape à une fiche
     func addEtape(idFiche: Int, etape : EtapeFiche) {
         let ficheVM = self.listeFichesVM[idFiche]
-        ficheVM.addEtapeToFiche(ficheVM, etape: etape)
+        ficheVM.addEtapeToFiche(etape)
     }
     
+    func deleteFiche(idFiche: Int) {
+        let ficheVM = self.listeFichesVM[idFiche]
+        ficheVM.deleteFiche(ficheVM)
+    }
     
     // Chercher la liste par Intitulé, responsable ou catégorie
     func searchFicheByName(nom : String) -> [FicheVM] {
@@ -55,7 +59,6 @@ class listeFichesVM : ObservableObject, FicheDelegate {
         return tabFiches
     }
     
-    
     // Récupération des fiches
     func getFiches() {
         db.collection("Fiche").getDocuments { snapshot, error in
@@ -65,9 +68,8 @@ class listeFichesVM : ObservableObject, FicheDelegate {
                     DispatchQueue.main.async {
                         //initialisation de la liste de fiches VM
                         self.listeFichesVM = snapshot.documents.map{ doc in
-                            return FicheVM(from : Fiche(intitule: doc["intitule"] as? String ?? "", responsable: doc["responsable"] as? String ?? "", couverts: doc["nbrCouverts"] as? Int ?? 0, categorie: doc["categorie"] as? String ?? "" , materielSpes: doc["materielSpes"] as? String ?? "", materielDress: doc["materielDress"] as? String ?? ""))
+                            return FicheVM(from : Fiche(intitule: doc["intitule"] as? String ?? "", responsable: doc["responsable"] as? String ?? "", couverts: doc["nbrCouverts"] as? Int ?? 0, categorie: doc["categorie"] as? String ?? "",ingredients: doc["ingredients"] as? [String] ?? [], description: doc["description"] as? String ?? "", etape: doc["etape"] as? [String] ?? [] , materielSpes: doc["materielSpes"] as? String ?? "", materielDress: doc["materielDress"] as? String ?? "", temps: doc["temps"] as? Int ?? 0))
                         }
-                        
                     }
                 }
             }

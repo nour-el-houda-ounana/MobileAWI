@@ -105,8 +105,8 @@ struct StockView: View {
                                     }
                                     
                                     Spacer().frame(width:10)
-                                    Text("Quantité : \(item.model.quantite) \(item.model.unite)")
-                                    Text("PU : \(item.model.PU) euros")
+                                    Text("Quantité : \(item.model.quantite,specifier: "%.2f") \(item.model.unite)")
+                                    Text("Prix Unitaire : \(item.model.PU,specifier: "%.2f") euros/\(item.model.unite)")
                                     if(item.model.allergene.description == "true"){
                                         Text("Type Allergene : \(item.model.typeAllergene)").bold().foregroundColor(.red)
                                     }

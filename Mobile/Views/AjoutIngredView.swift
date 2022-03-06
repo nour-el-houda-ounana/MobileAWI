@@ -12,6 +12,9 @@ struct AjoutIngredView: View {
     @ObservedObject
     var listIngred = listeIngredsVM()
     
+    @ObservedObject
+    var ingVM = ingredVM(from: Ingredient(id: "", nom: "", PU: 2, unite: "", quantite: 3, allergene: false, typeAllergene: "", categorie: ""))
+    
     @State
     var catIngre = IngredCatVM()
     
@@ -99,7 +102,7 @@ struct AjoutIngredView: View {
                 }
                 ToolbarItem {
                     Button {
-                        listIngred.push(igVm: ingredVM(from: Ingredient(nom: ingredient, PU: Double(prixUnitaire), unite: unite.description, quantite: quantite, allergene: isAllergene, typeAllergene: typeAllergene, categorie: categorie)))
+                        ingVM.add(nom: ingredient, PU: Double(prixUnitaire), unite: unite.description, quantite: quantite, allergene: isAllergene, typeAllergene: typeAllergene, categorie: categorie)
                         
                         dismiss()
                         

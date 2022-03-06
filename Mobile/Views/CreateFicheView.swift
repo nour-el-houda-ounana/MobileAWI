@@ -110,7 +110,7 @@ struct CreateFicheView: View {
                 }
                 
                 Button("Valider"){
-                    fVM.addFicheV2(intitule: intitule, responsable: responsable, couverts: couverts, categorie: categorie, ingredients: ingredSelected, description: description, materielSpes: matSpes, materielDress: matDress, temps: temps)
+                    fVM.addFiche(intitule: intitule, responsable: responsable, couverts: couverts, categorie: categorie, ingredients: ingredSelected, description: description, materielSpes: matSpes, materielDress: matDress, temps: temps)
                     
                 }
                 .frame(width: 140, height: 30, alignment: .center)

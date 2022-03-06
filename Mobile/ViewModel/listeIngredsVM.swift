@@ -57,7 +57,7 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
        didSet{
           switch self.intent{
              case .valuePushing(let ingredient):
-                self.push(igVm: ingredient)
+                //self.push(igVm: ingredient)
                 self.intent = .valuePushed(ingredient)
              /*case .valueAppending(let ingredient):
                 self.append(track)
@@ -85,7 +85,7 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
                     //Update the list property in the main thread
                     DispatchQueue.main.async {
                         self.liste = snapshot.documents.map{ doc in
-                            return ingredVM(from :Ingredient(nom: doc["nom"] as? String ?? "", PU: doc["PU"] as? Double ?? 0, unite:  doc["unite"] as? String ?? "", quantite: doc["quantite"] as? Double ?? 0, allergene: doc["allergene"] as? Bool ?? false, typeAllergene: doc["CatAllergene"] as? String ?? "", categorie: doc["categorie"] as? String ?? ""))
+                            return ingredVM(from :Ingredient(id: doc.documentID, nom: doc["nom"] as? String ?? "", PU: doc["PU"] as? Double ?? 0, unite:  doc["unite"] as? String ?? "", quantite: doc["quantite"] as? Double ?? 0, allergene: doc["allergene"] as? Bool ?? false, typeAllergene: doc["CatAllergene"] as? String ?? "", categorie: doc["categorie"] as? String ?? ""))
                         }
                     }
                 }
@@ -103,7 +103,7 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
                     return
                 }
                 self.liste = doc.map{ (document) -> ingredVM in
-                    return ingredVM(from :Ingredient(nom: document["nom"] as? String ?? "", PU : document["PU"] as? Double ?? 0, unite:  document["unite"] as? String ?? "", quantite: document["quantite"] as? Double ?? 0, allergene: document["allergene"] as? Bool ?? false, typeAllergene: document["CatAllergene"] as? String ?? "", categorie: document["categorie"] as? String ?? ""))
+                    return ingredVM(from :Ingredient(id: document.documentID, nom: document["nom"] as? String ?? "", PU : document["PU"] as? Double ?? 0, unite:  document["unite"] as? String ?? "", quantite: document["quantite"] as? Double ?? 0, allergene: document["allergene"] as? Bool ?? false, typeAllergene: document["CatAllergene"] as? String ?? "", categorie: document["categorie"] as? String ?? ""))
                 }
             })
         }
@@ -139,13 +139,13 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
     }*/
     
     
-    func push(igVm : ingredVM) {
+    /*func push(igVm : ingredVM) {
         igVm.model.add(delegate: self)
         igVm.add(igVm)
         self.liste.append(igVm)
         self.intent = .valuePushed(igVm)
 
-    }
+    }*/
     
     func searchIngredientByName(nom : String) -> [ingredVM] {
         var tabFiches : [ingredVM] = []

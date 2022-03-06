@@ -79,11 +79,11 @@ class ingredVM : ObservableObject, IngredDelegate {
     var typeAllergene : String { return model.typeAllergene }
 
     
-    func add(_ igVm : ingredVM) {
+    func add(nom : String, PU : Double, unite: String, quantite:Double,allergene:Bool,typeAllergene : String, categorie : String) {
         // Ajouter à la Collection
-        db.collection("ingredients").addDocument(data: ["nom": igVm.model.nom, "PU": igVm.model.PU,
-                                                        "unite": igVm.model.unite, "quantite": igVm.model.quantite,
-                                                        "allergene" : igVm.model.allergene, "CatAllergene": igVm.model.typeAllergene, "categorie": igVm.model.categorie ])
+        db.collection("ingredients").addDocument(data: ["nom": nom, "PU": PU,
+                                                        "unite": unite, "quantite": quantite,
+                                                        "allergene" : allergene, "CatAllergene": typeAllergene, "categorie": categorie ])
     }
     
     func delete() {

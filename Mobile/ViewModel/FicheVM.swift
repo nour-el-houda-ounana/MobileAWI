@@ -72,17 +72,11 @@ class FicheVM : ObservableObject, FicheDelegate {
     }
     
     
-    func addFicheV2(intitule : String, responsable : String, couverts: Int, categorie: String,ingredients: [String], description : String, etape: [String] = [], materielSpes: String, materielDress : String, temps : Int) {
+    func addFiche(intitule : String, responsable : String, couverts: Int, categorie: String,ingredients: [String], description : String, etape: [String] = [], materielSpes: String, materielDress : String, temps : Int) {
         db.collection("Fiche").addDocument(data: ["intitule": intitule, "responsable" : responsable,
                                                   "nbrCouverts": couverts ,"categorie" : categorie,"ingredients" :ingredients,"description": description, "etape": [] , "materielSpes": materielSpes, "materielDress": materielDress, "temps" : temps])
     }
     
-    
-    func addFiche(_ ficheVm : FicheVM) {
-        db.collection("Fiche").addDocument(data: ["intitule": ficheVm.model.intitule, "responsable" : ficheVm.model.responsable,
-                                                  "nbrCouverts": ficheVm.model.couverts ,"categorie" : ficheVm.model.categorie,"ingredients" : ficheVm.model.ingredients,"description": ficheVm.model.description, "etape": [] , "materielSpes": ficheVm.model.materielSpes,
-                                                  "materielDress": ficheVm.model.materielDress, "temps" : ficheVm.model.tempsTotal])
-    }
     
     func updateFiche() {
         if let documentId = model.id {
@@ -114,6 +108,12 @@ class FicheVM : ObservableObject, FicheDelegate {
     func updateMatDress(name : String){
         if let documentId = model.id {
             db.collection("Fiche").document(documentId).setData(["materielDress": name], merge: true)
+        }
+    }
+    
+    func updateTemps(temps : Int) {
+        if let documentId = model.id {
+            db.collection("Fiche").document(documentId).setData(["temps": temps], merge: true)
         }
     }
     

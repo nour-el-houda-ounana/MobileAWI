@@ -15,7 +15,7 @@ struct detailFicheView: View {
     var index : Int
     
     @ObservedObject
-    var ingred : ingredVM = ingredVM(from: Ingredient(nom: "nn", PU: 3, unite: "KG", quantite: 22, allergene: false, typeAllergene: "", categorie: ""))
+    var ingred : ingredVM = ingredVM(from: Ingredient(id: "",nom: "nn", PU: 3, unite: "KG", quantite: 22, allergene: false, typeAllergene: "", categorie: ""))
 
     @ObservedObject
     var listeIngreds = listeIngredsVM()
@@ -89,6 +89,14 @@ struct detailFicheView: View {
                             .font(.title3)
                     Text("\(fiches.listeFichesVM[index].model.couverts)")
                     
+                }
+                
+                HStack {
+                    Text("Temps préparation : ")
+                            .fontWeight(.medium)
+                            .padding(.vertical,8)
+                            .font(.title3)
+                    Text("\(fiches.listeFichesVM[index].model.tempsTotal) min")
                 }
                 
                 if !fiches.listeFichesVM[index].model.description.isEmpty {
@@ -170,10 +178,7 @@ struct detailFicheView: View {
                         .background(.gray)
                         .cornerRadius(20)
                         
-                        
                     }
-
-                    
                 }
 
                 

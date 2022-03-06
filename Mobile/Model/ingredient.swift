@@ -19,7 +19,7 @@ protocol IngredDelegate : AnyObject {
 
 class Ingredient : Identifiable {
     
-    @DocumentID var id: String! = UUID().uuidString
+    @DocumentID var id: String?
     
     var nom : String {
         didSet{
@@ -69,7 +69,8 @@ class Ingredient : Identifiable {
         }
     }
 
-    init(nom : String, PU : Double, unite: String, quantite:Double,allergene:Bool,typeAllergene : String, categorie : String){
+    init(id: String ,nom : String, PU : Double, unite: String, quantite:Double,allergene:Bool,typeAllergene : String, categorie : String){
+        self.id = id
         self.nom = nom
         self.PU = PU
         self.unite = unite

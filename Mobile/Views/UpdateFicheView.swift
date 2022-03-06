@@ -15,6 +15,10 @@ struct UpdateFicheView: View {
     var index : Int
     
     @State var nom : String = ""
+    @State var responsable : String = ""
+    
+    @State var matSpec : String = ""
+    @State var matDress : String = ""
     
     var body: some View {        
         NavigationView {
@@ -27,7 +31,10 @@ struct UpdateFicheView: View {
                 }
                 
                 Section(header: Text("Responsable")) {
-                    Text("\(liste.listeFichesVM[index].model.responsable)")
+                    TextField("Nom du responsable", text: $responsable)
+                        .onSubmit {
+                            liste.listeFichesVM[index].updateRespo(name: responsable)
+                        }
                 }
                 
                 Section(header: Text("Catégorie")) {
@@ -46,12 +53,18 @@ struct UpdateFicheView: View {
                 }
                 
                 Section(header: Text("Matériel spécifique")) {
-                    //TextField("Matériel spécifique", text: $matSpes)
+                    TextField("Nom du responsable", text: $matSpec)
+                        .onSubmit {
+                            liste.listeFichesVM[index].updateMatSpec(name: matSpec)
+                        }
                     
                 }
                 
                 Section(header: Text("Matériel de dressage")) {
-                    //TextField("Matériel dressage", text: $matDress)
+                    TextField("Nom du responsable", text: $matDress)
+                        .onSubmit {
+                            liste.listeFichesVM[index].updateMatDress(name: matDress)
+                        }
                 }
                 
             }
@@ -59,6 +72,9 @@ struct UpdateFicheView: View {
             .padding()
             .onAppear {
                 self.nom = liste.listeFichesVM[index].model.intitule
+                self.responsable = liste.listeFichesVM[index].model.responsable
+                self.matSpec = liste.listeFichesVM[index].model.materielSpes
+                self.matDress = liste.listeFichesVM[index].model.materielDress
                 
             }
         }

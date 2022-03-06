@@ -116,7 +116,6 @@ struct detailFicheView: View {
                             }
                             
                         }
-                        
                         Spacer().frame(height: 20)
                         Text("Description :").font(.headline).foregroundColor(Color.orange).shadow(color: .black, radius: 2)
                         Text("\(fiches.listeFichesVM[index].model.description)")
@@ -128,12 +127,55 @@ struct detailFicheView: View {
                 }
                 
                 //Lister les étapes de plus
-                List {
+                let tabEtapes = fiches.getFiches(tabetapes: fiches.listeFichesVM[index].model.etape)
+                
+                if tabEtapes.count != 0 {
+                    Text("Autres Etapes : ")
+                            .fontWeight(.medium)
+                            .padding(.vertical,8)
+                            .font(.title3)
+                    
+                    ForEach(Array(tabEtapes.enumerated()), id: \.element.model.id) { index, item in
+                        VStack(alignment : .leading) {
+                            HStack {
+                                
+                                ZStack (alignment: .trailing){
+                                    HStack {
+                                        Text("\(item.model.tempsTotal) min").padding().background(
+                                            Circle()
+                                                .stroke(Color.orange, lineWidth: 3)
+                                        ).frame(width: 100, height: 100, alignment: .center)
+                                        
+                                    }
+                                }
+                                .frame(width: 40, height: 40)
+                                Spacer().frame(width: 10)
+                                Text("\(item.intitule)").bold().italic()
+                            }
+
+                            Text("Ingrédients :").font(.headline).foregroundColor(Color.orange).shadow(color: .black, radius: 2)
+                            ForEach(item.model.ingredients, id : \.self) { ing in
+                                HStack {
+                                    Text(ing)
+                                    let x = listeIngreds.getUnite(nomIngred: ing)
+                                    Text("            0 \(x)")
+                                }
+                            }
+                            Spacer().frame(height: 20)
+                            Text("Description :").font(.headline).foregroundColor(Color.orange).shadow(color: .black, radius: 2)
+                            Text("\(item.model.description)")
+                        }
+                        .padding(12)
+                        .frame(width : UIScreen.main.bounds.width-15)
+                        .background(.gray)
+                        .cornerRadius(20)
+                        
+                        
+                    }
+
                     
                 }
-                
-                
-                //
+
                 
                 Spacer().frame(height : 30)
                 NavigationLink(destination: EtapeCreationView(fiches: fiches, index: index)) {

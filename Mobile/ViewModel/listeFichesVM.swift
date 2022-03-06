@@ -78,6 +78,19 @@ class listeFichesVM : ObservableObject, FicheDelegate {
         return tabFiches
     }
     
+    // Get Fiches qui sont utilisés comme étape dans une autre fiche
+    func getFiches(tabetapes : [String]) -> [FicheVM]{
+        var tab : [FicheVM] = []
+
+        for j in 0..<listeFichesVM.count {
+            if tabetapes.contains(listeFichesVM[j].intitule) {
+                tab.append(listeFichesVM[j])
+            }
+        }
+        
+        return tab
+    }
+    
     
     //Delegate
     func changed(intitule: String) {

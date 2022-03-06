@@ -99,6 +99,25 @@ class FicheVM : ObservableObject, FicheDelegate {
         }
     }
     
+    func updateRespo(name : String){
+        if let documentId = model.id {
+            db.collection("Fiche").document(documentId).setData(["responsable": name], merge: true)
+        }
+    }
+    
+    func updateMatSpec(name : String){
+        if let documentId = model.id {
+            db.collection("Fiche").document(documentId).setData(["materielSpes": name], merge: true)
+        }
+    }
+    
+    func updateMatDress(name : String){
+        if let documentId = model.id {
+            db.collection("Fiche").document(documentId).setData(["materielDress": name], merge: true)
+        }
+    }
+    
+    
     //delete Fiche
     func deleteFiche() {
         if let documentId = model.id {

@@ -47,6 +47,7 @@
 		6FA5398027D04D8E0011C76A /* updateCoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5397F27D04D8E0011C76A /* updateCoutView.swift */; };
 		6FA5398227D1749B0011C76A /* EtapeCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5398127D1749B0011C76A /* EtapeCreationView.swift */; };
 		6FA5398427D29D1A0011C76A /* UpdateFicheView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5398327D29D1A0011C76A /* UpdateFicheView.swift */; };
+		6FA5398927D438BF0011C76A /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5398827D438BF0011C76A /* loginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		6FA5397F27D04D8E0011C76A /* updateCoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = updateCoutView.swift; sourceTree = "<group>"; };
 		6FA5398127D1749B0011C76A /* EtapeCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtapeCreationView.swift; sourceTree = "<group>"; };
 		6FA5398327D29D1A0011C76A /* UpdateFicheView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFicheView.swift; sourceTree = "<group>"; };
+		6FA5398827D438BF0011C76A /* loginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +245,7 @@
 				6FA5397F27D04D8E0011C76A /* updateCoutView.swift */,
 				6FA5398127D1749B0011C76A /* EtapeCreationView.swift */,
 				6FA5398327D29D1A0011C76A /* UpdateFicheView.swift */,
+				6FA5398827D438BF0011C76A /* loginView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				6F00E2D327CF7D1700B840AC /* detailFicheView.swift in Sources */,
 				6F00E2AE27CF6ED700B840AC /* IngredCat.swift in Sources */,
 				6FA5398027D04D8E0011C76A /* updateCoutView.swift in Sources */,
+				6FA5398927D438BF0011C76A /* loginView.swift in Sources */,
 				6F00E2C727CF7A5000B840AC /* CommandeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

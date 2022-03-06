@@ -71,6 +71,8 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
     //get ref to database
     private var db =  Firestore.firestore()
     
+    private var listener : ListenerRegistration?
+    
     
     init() {
         getIngreds()
@@ -92,16 +94,49 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
                 //Handeling the error
             }
         }
-        
+    }
+    
+    func fetchData(){
+        if listener == nil {
+            listener = db.collection("ingredients").addSnapshotListener({ (querySnapshot, error) in
+                guard let doc = querySnapshot?.documents else {
+                    return
+                }
+                self.liste = doc.map{ (document) -> ingredVM in
+                    return ingredVM(from :Ingredient(nom: document["nom"] as? String ?? "", PU : document["PU"] as? Double ?? 0, unite:  document["unite"] as? String ?? "", quantite: document["quantite"] as? Double ?? 0, allergene: document["allergene"] as? Bool ?? false, typeAllergene: document["CatAllergene"] as? String ?? "", categorie: document["categorie"] as? String ?? ""))
+                }
+            })
+        }
+    }
+    
+    func getUnite(nomIngred : String) -> String{
+        for ing in liste {
+            if ing.name == nomIngred {
+                return ing.unite
+            }
+        }
+        return "none"
     }
     
     
-    func delete(igVm : ingredVM) {
+   func delete(igVm : ingredVM) {
         igVm.model.remove(delegate: self)
-        igVm.delete(igVm)
+        igVm.delete()
         self.liste = self.liste.filter { $0 !== igVm }
         self.intent = .valueDeleted(igVm)
     }
+    
+    /*func deleteIngredient(idIngredient : String) {
+        db.collection("ingredients").document(idIngredient).delete(){ error in
+            if error == nil {
+                DispatchQueue.main.async {
+                    self.liste.removeAll { ingred in
+                        return ingred.model.id == idIngredient
+                    }
+                }
+            }
+        }
+    }*/
     
     
     func push(igVm : ingredVM) {
@@ -112,6 +147,15 @@ class listeIngredsVM : ObservableObject,IngredDelegate {
 
     }
     
+    func searchIngredientByName(nom : String) -> [ingredVM] {
+        var tabFiches : [ingredVM] = []
+        for i in 0..<self.liste.count {
+            if(self.liste[i].model.nom.contains(nom)){
+                tabFiches.append(self.liste[i])
+            }
+        }
+        return tabFiches
+    }
     
     // Delegate
     func changed(name: String) {

@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 protocol IngredDelegate : AnyObject {
     func changed(name: String)
@@ -18,7 +19,7 @@ protocol IngredDelegate : AnyObject {
 
 class Ingredient : Identifiable {
     
-    var id: String = UUID().uuidString
+    @DocumentID var id: String! = UUID().uuidString
     
     var nom : String {
         didSet{

@@ -13,7 +13,13 @@ struct detailFicheView: View {
     var fiches : listeFichesVM
     
     var index : Int
+    
+    @ObservedObject
+    var ingred : ingredVM = ingredVM(from: Ingredient(nom: "nn", PU: 3, unite: "KG", quantite: 22, allergene: false, typeAllergene: "", categorie: ""))
 
+    @ObservedObject
+    var listeIngreds = listeIngredsVM()
+    
     var body: some View {
         ScrollView {
             Image("pic")
@@ -102,7 +108,13 @@ struct detailFicheView: View {
                         
                         Text("Ingrédients de base :").font(.headline).foregroundColor(Color.orange).shadow(color: .black, radius: 2)
                         ForEach(fiches.listeFichesVM[index].model.ingredients, id : \.self) { ing in
-                            Text(ing)
+                            HStack {
+                                Text(ing)
+                                let x = listeIngreds.getUnite(nomIngred: ing)
+                                Text("            0 \(x)")
+                                
+                            }
+                            
                         }
                         
                         Spacer().frame(height: 20)

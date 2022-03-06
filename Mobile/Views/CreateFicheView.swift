@@ -72,7 +72,6 @@ struct CreateFicheView: View {
                     Stepper("\(couverts) ",value: $couverts,in: 1...100, step : 1);
                 }
                 
-                
                 Section(header: Text("--- Etape de base ------  \n \nIngrédients")) {
                     List {
                         ForEach(Array(searchListe.enumerated()), id: \.element.model.id){ index, item in

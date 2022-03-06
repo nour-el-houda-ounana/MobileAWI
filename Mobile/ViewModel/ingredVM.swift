@@ -84,20 +84,15 @@ class ingredVM : ObservableObject, IngredDelegate {
         db.collection("ingredients").addDocument(data: ["nom": igVm.model.nom, "PU": igVm.model.PU,
                                                         "unite": igVm.model.unite, "quantite": igVm.model.quantite,
                                                         "allergene" : igVm.model.allergene, "CatAllergene": igVm.model.typeAllergene, "categorie": igVm.model.categorie ])
-        
     }
     
-    func delete(_ igVm : ingredVM) {
-        db.collection("ingredients").document(igVm.model.id).delete(){ error in
-            if error == nil {
-                /*DispatchQueue.main.async {
-                    self.liste.removeAll { ingred in
-                        return ingred.model.id == igVm.model.id
-                        
-                    }
-                }*/
+    func delete() {
+        if let docId = model.id {
+            db.collection("ingredients").document(docId).delete{ error in
+                if error == nil {
+                    print("Deletee")
+                }
             }
-            
         }
     }
     

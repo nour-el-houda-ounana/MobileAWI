@@ -13,34 +13,24 @@ struct CoutsView : View {
     @StateObject
     var listeCouts : coutsVM = coutsVM()
     
-    @State
-    var activer : Bool = false
-    
-    @State
-    var personnel : Double = 0
-    
-    @State
-    var fluide : Double = 0
-    
-    @State
-    var coefficient : Int = 0
+    @State var activer : Bool = false
+    @State var personnel : Double = 0
+    @State var fluide : Double = 0
+    @State var coefficient : Int = 0
     
     var alwaysDisable : Bool = true
     
-    @State
-    var update = false
+    @State var update = false
     
-        
     var body: some View {
-            
         NavigationView {
             VStack {
                 VStack(alignment : .leading) {
-                    Text("Cout de personnel : \(personnel,specifier: "%.2f") €/h")
-                    Text("Couts de fluide : \(fluide,specifier: "%.2f") €/MH")
+                    Text("Coût de personnel : \(personnel,specifier: "%.2f") €/h")
+                    Text("Coût de fluide : \(fluide,specifier: "%.2f") €/Kg")
                     Text("Coefficient multiplicateur : \(coefficient)% ")
                     Toggle(isOn: $activer) {
-                        Text("Cout Assaisonement ( 5% ) ")
+                        Text("Coût d'assaisonement ( 5% ) ")
                     }
                     .disabled(alwaysDisable == true)
                 }

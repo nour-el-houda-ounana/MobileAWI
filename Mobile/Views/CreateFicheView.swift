@@ -18,6 +18,9 @@ struct CreateFicheView: View {
     @ObservedObject
     var listeIngreds = listeIngredsVM()
     
+    @ObservedObject
+    var fVM = FicheVM(from: Fiche(id: "", intitule: "", responsable: "", couverts: 2, categorie: "", ingredients: [], description: "", etape: [], materielSpes: "", materielDress: "", temps: 1))
+    
     @State var intitule : String = ""
     @State var responsable : String = ""
     @State var couverts : Int = 1
@@ -97,8 +100,6 @@ struct CreateFicheView: View {
                     TextField("Durée", value: $temps, formatter : formatter)
                 }
                 
-                //
-                
                 Section(header: Text("---------------------------- \n \nMatériel spécifique")) {
                     TextField("Matériel spécifique", text: $matSpes)
                 }
@@ -109,15 +110,14 @@ struct CreateFicheView: View {
                 }
                 
                 Button("Valider"){
-                    listeFiches.push(fiche: FicheVM(from: Fiche(intitule: intitule, responsable: responsable, couverts: couverts, categorie: categorie,ingredients: ingredSelected,description: description, etape: [], materielSpes: matSpes, materielDress: matDress, temps: temps)))
+                    fVM.addFicheV2(intitule: intitule, responsable: responsable, couverts: couverts, categorie: categorie, ingredients: ingredSelected, description: description, materielSpes: matSpes, materielDress: matDress, temps: temps)
                     
                 }
                 .frame(width: 140, height: 30, alignment: .center)
                 .foregroundColor(.orange)
                 .background(.black)
                 .cornerRadius(16)
-                .disabled(intitule.isEmpty)
-                
+                .disabled(intitule.isEmpty && categorie.isEmpty && responsable.isEmpty)
             }
             .navigationTitle("➕ Créez votre fiche")
             .padding()

@@ -19,7 +19,7 @@ protocol FicheDelegate : AnyObject {
 
 class Fiche : Identifiable {
 
-    var id : String = UUID().uuidString
+    @DocumentID var id : String?  // = UUID().uuidString
     
     var intitule : String {
         didSet{
@@ -49,8 +49,6 @@ class Fiche : Identifiable {
         }
      }
     
-    //var etape : [{description, [ingredients], [qtt]}]
-    
     var ingredients : [String]
     var description : String
     var tempsTotal : Int
@@ -71,7 +69,8 @@ class Fiche : Identifiable {
         }
      }
     
-    init(intitule : String, responsable : String, couverts: Int, categorie: String,ingredients: [String], description : String, etape: [String] = [], materielSpes: String, materielDress : String, temps : Int){
+    init(id : String, intitule : String, responsable : String, couverts: Int, categorie: String,ingredients: [String], description : String, etape: [String] = [], materielSpes: String, materielDress : String, temps : Int){
+        self.id = id
         self.intitule = intitule
         self.responsable = responsable
         self.couverts = couverts

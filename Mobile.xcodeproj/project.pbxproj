@@ -48,6 +48,7 @@
 		6FA5398227D1749B0011C76A /* EtapeCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5398127D1749B0011C76A /* EtapeCreationView.swift */; };
 		6FA5398427D29D1A0011C76A /* UpdateFicheView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5398327D29D1A0011C76A /* UpdateFicheView.swift */; };
 		6FA5398927D438BF0011C76A /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5398827D438BF0011C76A /* loginView.swift */; };
+		6FA5398B27D4FB250011C76A /* loginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5398A27D4FB240011C76A /* loginVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		6FA5398127D1749B0011C76A /* EtapeCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtapeCreationView.swift; sourceTree = "<group>"; };
 		6FA5398327D29D1A0011C76A /* UpdateFicheView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFicheView.swift; sourceTree = "<group>"; };
 		6FA5398827D438BF0011C76A /* loginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
+		6FA5398A27D4FB240011C76A /* loginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 				6F00E2CE27CF7C0C00B840AC /* FicheVM.swift */,
 				6F00E2DC27CF83E500B840AC /* IngredCatVM.swift */,
 				6FA5397B27D03C830011C76A /* coutsVM.swift */,
+				6FA5398A27D4FB240011C76A /* loginVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				6F00E2C927CF7ACB00B840AC /* CatFicheVM.swift in Sources */,
 				6F00E2CD27CF7BD600B840AC /* listeFichesVM.swift in Sources */,
 				6F00E27F27CF6DA000B840AC /* ContentView.swift in Sources */,
+				6FA5398B27D4FB250011C76A /* loginVM.swift in Sources */,
 				6F00E2B227CF6F3000B840AC /* AllergeneCat.swift in Sources */,
 				6FA5397A27D034E60011C76A /* FicheByCatView.swift in Sources */,
 				6F00E2CF27CF7C0C00B840AC /* FicheVM.swift in Sources */,

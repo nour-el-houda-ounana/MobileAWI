@@ -8,6 +8,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import Combine
+import FirebaseFirestoreSwift
 
 
 enum FicheVMIntent : CustomStringConvertible, Equatable {
@@ -41,6 +42,8 @@ class FicheVM : ObservableObject, FicheDelegate {
              }
           }
        }
+    
+    @DocumentID var id : String?
         
     @Published var intitule : String {
         didSet {
@@ -68,29 +71,39 @@ class FicheVM : ObservableObject, FicheDelegate {
         fiche.add(delegate: self)
     }
     
+    
+    func addFicheV2(intitule : String, responsable : String, couverts: Int, categorie: String,ingredients: [String], description : String, etape: [String] = [], materielSpes: String, materielDress : String, temps : Int) {
+        db.collection("Fiche").addDocument(data: ["intitule": intitule, "responsable" : responsable,
+                                                  "nbrCouverts": couverts ,"categorie" : categorie,"ingredients" :ingredients,"description": description, "etape": [] , "materielSpes": materielSpes, "materielDress": materielDress, "temps" : temps])
+    }
+    
+    
     func addFiche(_ ficheVm : FicheVM) {
         db.collection("Fiche").addDocument(data: ["intitule": ficheVm.model.intitule, "responsable" : ficheVm.model.responsable,
                                                   "nbrCouverts": ficheVm.model.couverts ,"categorie" : ficheVm.model.categorie,"ingredients" : ficheVm.model.ingredients,"description": ficheVm.model.description, "etape": [] , "materielSpes": ficheVm.model.materielSpes,
                                                   "materielDress": ficheVm.model.materielDress, "temps" : ficheVm.model.tempsTotal])
     }
     
-    func addEtapeToFiche(_ etape : EtapeFiche) {
-        let Array = ["titreEtape" : etape.nom, "description" : etape.description , "temps" : etape.temps] as [String : Any]
-        db.collection("Fiche").document(model.id).updateData(["etape" : FieldValue.arrayUnion([Array])]) { (error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                }
+    func updateFiche() {
+        if let documentId = model.id {
+            db.collection("Fiche").document(documentId).setData(["etape": model.etape], merge: true)
         }
     }
     
+    
     //update Fiche
     func updateName(name : String){
-        db.collection("Fiche").document(self.model.id).setData(["intitule" : name], merge: true)
+        if let documentId = model.id {
+            db.collection("Fiche").document(documentId).setData(["intitule": name], merge: true)
+            
+        }
     }
     
     //delete Fiche
-    func deleteFiche(_ ficheVm : FicheVM) {
-        db.collection("Fiche").document(ficheVm.model.id).delete()
+    func deleteFiche() {
+        if let documentId = model.id {
+            db.collection("Fiche").document(documentId).delete()
+        }
     }
     
     // Delegate

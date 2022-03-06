@@ -26,76 +26,100 @@ struct EtapeCreationView: View {
     
     var index : Int
         
-    @State var nom : String = ""
-    @State var temps : Int = 0
-    @State var description : String = ""
-    
-    @State var chercher = ""
-    
+    @State var chercherFiche = ""
+
     let formatter: NumberFormatter = {
       let formatter = NumberFormatter()
       formatter.numberStyle = .decimal
       return formatter
     }()
     
-    var searchListe : [ingredVM] {
-           if chercher.isEmpty {
-               return listeIngreds.liste
+    
+    var searchFiche : [FicheVM] {
+           if chercherFiche.isEmpty {
+               return fiches.listeFichesVM
            } else {
-               return listeIngreds.searchIngredientByName(nom: chercher)
+               return fiches.searchFicheByName(nom: chercherFiche)
            }
     }
     
-    var ingredients : [Ingredient] = []
-    @State private var selectedIngreds = Set<String>()
     
+    var ingredients : [Ingredient] = []
+
+    @State var autre : Bool = false
+    
+    @State var etapes : [String] = []
+
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Nom de l'étape ")) {
-                    TextField("Nom de l'étape", text: $nom)
-                }
-                
-                Section(header: Text("Temps de réalisation (en min) ")) {
-                    TextField("Temps de réalisation ", value: $temps, formatter : formatter)
-                }
-                
-                Section(header: Text("Description")) {
-                    TextField("Description ", text: $description)
-                }
-                
-                Section(header: Text("Ingrédients")) {
+            
+            VStack {
+                if !autre {
+                    //Lister les fiches existantes
                     List {
-                        ForEach(Array(searchListe.enumerated()), id: \.element.model.id){ index, item in
-                            VStack {
-                                Text("\(item.name)")
+                        ForEach(Array(searchFiche.enumerated()), id: \.element.model.id){ index, item in
+                            MultiSelectRow(title: item.intitule, isSelected: self.etapes.contains(item.intitule) ) {
+                                if self.etapes.contains(item.intitule) {
+                                    self.etapes.removeAll(where: { $0 == item.intitule })
+                                }
+                                else {
+                                    self.etapes.append(item.intitule)
+                                }
                             }
                         }
                     }
-                    .searchable(text: $chercher, prompt: "Chercher un ingrédient")
-                }
-                
-                Button("Valider"){
-                    //here
-                    let step = EtapeFiche(nom: nom, temps: temps, description: description, ingredients: ingredients)
-                    fiches.addEtape(idFiche: index, etape: step)
+                    .searchable(text: $chercherFiche, prompt: "Chercher une fiche")
                     
                 }
-                .frame(width: 140, height: 30, alignment: .center)
-                .foregroundColor(.orange)
-                .background(.black)
-                .cornerRadius(16)
-                .disabled(nom.isEmpty && temps == 0 && description.isEmpty)
+                else {
+                    // Créer une nouvelle fiche qui sera ajoutée comme étape
+                    Text("Créate Etape")
+                }
+                
 
                 
             }
             .navigationTitle("➕ Ajouter une étape")
-            .padding()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Valider") {
+                        self.fiches.addEtapeToFiche(idFiche: index, etapes: etapes)
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Autre") {
+                        autre = true
+                    }
+                }
+            }
 
         }
-        
+
     }
 }
+
+// Multiple Selection
+struct MultiSelectRow: View {
+    var title: String
+    var isSelected: Bool
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: self.action) {
+            HStack {
+                Text(self.title)
+                if self.isSelected {
+                    Spacer()
+                    Image(systemName: "checkmark")
+                }
+            }
+        }
+    }
+}
+
+
+
 
 struct EtapeCreationView_Previews: PreviewProvider {
     static var previews: some View {

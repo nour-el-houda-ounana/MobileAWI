@@ -20,22 +20,41 @@ class listeFichesVM : ObservableObject, FicheDelegate {
         getFiches()
     }
     
-    func push(fiche : FicheVM) {
-        fiche.model.add(delegate:self)
-        fiche.addFiche(fiche)
-        self.listeFichesVM.append(fiche)
+    // Récupération des fiches
+    func getFiches() {
+        db.collection("Fiche").getDocuments { snapshot, error in
+            if error == nil {
+                if let snapshot = snapshot {
+                    //Update the list property in the main thread
+                    DispatchQueue.main.async {
+                        //initialisation de la liste de fiches VM
+                        self.listeFichesVM = snapshot.documents.map{ doc in
+                            return FicheVM(from : Fiche(id: doc.documentID ,intitule: doc["intitule"] as? String ?? "", responsable: doc["responsable"] as? String ?? "", couverts: doc["nbrCouverts"] as? Int ?? 0, categorie: doc["categorie"] as? String ?? "",ingredients: doc["ingredients"] as? [String] ?? [], description: doc["description"] as? String ?? "", etape: doc["etape"] as? [String] ?? [] , materielSpes: doc["materielSpes"] as? String ?? "", materielDress: doc["materielDress"] as? String ?? "", temps: doc["temps"] as? Int ?? 0))
+                        }
+                    }
+                }
+            }
+            else{
+                //Handeling the error
+            }
+        }
     }
     
+    
     //Ajouter une étape à une fiche
-    func addEtape(idFiche: Int, etape : EtapeFiche) {
-        let ficheVM = self.listeFichesVM[idFiche]
-        ficheVM.addEtapeToFiche(etape)
+    func addEtapeToFiche(idFiche : Int, etapes : [String]){
+        for i in 0..<etapes.count {
+            self.listeFichesVM[idFiche].model.etape.append(etapes[i])
+        }
+        // Update le modèle dans la BD
+        self.listeFichesVM[idFiche].updateFiche()
     }
     
     func deleteFiche(idFiche: Int) {
         let ficheVM = self.listeFichesVM[idFiche]
-        ficheVM.deleteFiche(ficheVM)
+        ficheVM.deleteFiche()
     }
+    
     
     // Chercher la liste par Intitulé, responsable ou catégorie
     func searchFicheByName(nom : String) -> [FicheVM] {
@@ -57,26 +76,6 @@ class listeFichesVM : ObservableObject, FicheDelegate {
             }
         }
         return tabFiches
-    }
-    
-    // Récupération des fiches
-    func getFiches() {
-        db.collection("Fiche").getDocuments { snapshot, error in
-            if error == nil {
-                if let snapshot = snapshot {
-                    //Update the list property in the main thread
-                    DispatchQueue.main.async {
-                        //initialisation de la liste de fiches VM
-                        self.listeFichesVM = snapshot.documents.map{ doc in
-                            return FicheVM(from : Fiche(intitule: doc["intitule"] as? String ?? "", responsable: doc["responsable"] as? String ?? "", couverts: doc["nbrCouverts"] as? Int ?? 0, categorie: doc["categorie"] as? String ?? "",ingredients: doc["ingredients"] as? [String] ?? [], description: doc["description"] as? String ?? "", etape: doc["etape"] as? [String] ?? [] , materielSpes: doc["materielSpes"] as? String ?? "", materielDress: doc["materielDress"] as? String ?? "", temps: doc["temps"] as? Int ?? 0))
-                        }
-                    }
-                }
-            }
-            else{
-                //Handeling the error
-            }
-        }
     }
     
     

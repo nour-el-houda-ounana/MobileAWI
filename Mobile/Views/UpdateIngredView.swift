@@ -14,12 +14,11 @@ struct UpdateIngredView: View {
     
     var index : Int
     
-   /* @ObservedObject
+   /*@ObservedObject
     var ingVm : ingredVM*/
     
     @State
     var nom : String = ""
-    
     
     let formatter: NumberFormatter = {
        let formatter = NumberFormatter()
@@ -31,8 +30,7 @@ struct UpdateIngredView: View {
         NavigationView {
                 Form {
                     Section(header: Text("Nom ingrédient")) {
-                        TextField("nom", text: $ingreds.liste[index].name)
-                        //TextField("nom", text: $ingVm.name)
+                        TextField("nom", text: $nom)
                             /*.onSubmit {
                                 ingreds.liste[index].name = nom
                             }*/
@@ -58,6 +56,10 @@ struct UpdateIngredView: View {
                     Section(header: Text("unité")) {
                         //Text("\(ingVm.unite)")
                     }
+                    
+                }
+                .onAppear {
+                    self.nom = ingreds.liste[index].name
                 }
         }
         /*.toolbar {

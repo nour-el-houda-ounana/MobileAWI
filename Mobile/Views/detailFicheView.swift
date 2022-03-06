@@ -20,6 +20,8 @@ struct detailFicheView: View {
     @ObservedObject
     var listeIngreds = listeIngredsVM()
     
+    @State var showingAlert = false
+    
     var body: some View {
         ScrollView {
             Image("pic")
@@ -50,7 +52,6 @@ struct detailFicheView: View {
                     
                     Button {
                             //imprimer
-                        
                     } label: {
                         Image(systemName: "printer.filled.and.paper")
                             .padding(10)
@@ -61,15 +62,20 @@ struct detailFicheView: View {
                     Spacer().frame(width: 50)
 
                     Button {
-                            //supprimer
-                        fiches.deleteFiche(idFiche: index)
+                        showingAlert = true
                     } label: {
                         Image(systemName: "minus.circle.fill")
                             .padding(10)
                             .foregroundColor(.white)
                             .background(.black)
                             .cornerRadius(50)
+                    }.alert("Voulez-vous vraiment supprimer cette fiche ?", isPresented: $showingAlert) {
+                                Button("Supprimer") {
+                                    fiches.deleteFiche(idFiche: index)
+                                }
+                                Button("Annuler", role: .cancel) { }
                     }
+                    
                 }
             }
                         
@@ -106,14 +112,6 @@ struct detailFicheView: View {
                             .font(.title3)
                     
                     VStack(alignment : .leading) {
-                        ZStack (alignment: .trailing){
-                            Text("\(fiches.listeFichesVM[index].model.tempsTotal) min").padding().background(
-                                Circle()
-                                    .stroke(Color.orange, lineWidth: 3)
-                            ).frame(width: 100, height: 100, alignment: .center)
-                        }
-                        .frame(width: 40, height: 40)
-                        
                         Text("Ingrédients de base :").font(.headline).foregroundColor(Color.orange).shadow(color: .black, radius: 2)
                         ForEach(fiches.listeFichesVM[index].model.ingredients, id : \.self) { ing in
                             HStack {
@@ -138,6 +136,9 @@ struct detailFicheView: View {
                 let tabEtapes = fiches.getFiches(tabetapes: fiches.listeFichesVM[index].model.etape)
                 
                 if tabEtapes.count != 0 {
+                    
+                    Divider()
+                    
                     Text("Autres Etapes : ")
                             .fontWeight(.medium)
                             .padding(.vertical,8)
@@ -188,6 +189,7 @@ struct detailFicheView: View {
                 }
                 
                 if (fiches.listeFichesVM[index].model.materielDress != "") {
+                    Divider()
                     HStack {
                         Text("Materiel de dressage : ")
                                 .fontWeight(.medium)
@@ -206,6 +208,33 @@ struct detailFicheView: View {
                        Text("\(fiches.listeFichesVM[index].model.materielSpes)")
                     }
                 }
+                
+                Divider()
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Coût de personnel : ")
+                                .fontWeight(.medium)
+                                .padding(.vertical,8)
+                                .font(.title3)
+                        let c = fiches.listeFichesVM[index].calculCoutPersonnel()
+                        Text("\(c,specifier: "%.2f") €")
+                        
+                    }
+                    
+                    HStack {
+                        Text("Coût Fluide : ")
+                                .fontWeight(.medium)
+                                .padding(.vertical,8)
+                                .font(.title3)
+                        let y = fiches.listeFichesVM[index].calculCoutFluide()
+                        Text("\(y,specifier: "%.2f") €")
+                    }
+
+                }
+                
+                
+                
             }
             .padding()
         }

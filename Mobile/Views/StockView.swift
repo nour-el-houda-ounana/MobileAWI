@@ -68,7 +68,7 @@ struct StockView: View {
             }
             Spacer().frame(height: 10)
             
-            ForEach(Array(ingreds.liste.enumerated()), id: \.element.model.id){ index, item in
+            ForEach(Array(ingreds.liste.enumerated()), id: \.element.model.id){ indexe, item in
                     VStack {
                         ZStack(alignment: .leading) {
                             VStack(alignment: .leading){
@@ -123,7 +123,7 @@ struct StockView: View {
                         
                     }
                     .sheet(isPresented: $update) {
-                        UpdateIngredView(ingreds: ingreds, index: index)
+                        UpdateIngredView(ingreds: ingreds, index: indexe)
                     }
             }
             .onAppear() {

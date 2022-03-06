@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 protocol coutDelegate : AnyObject {
     func changed(personnel: Double)
@@ -19,7 +20,7 @@ class couts : Identifiable {
     
     private var delegates = [coutDelegate]()
 
-    var id = UUID().uuidString
+    @DocumentID var id : String?
     
     var personnel : Double = 0.0 {
         didSet{
@@ -51,22 +52,13 @@ class couts : Identifiable {
         
     }
     
-    init(personnel: Double, fluide: Double, assaisonement: Bool, coeffMultip : Int){
+    init(id : String, personnel: Double, fluide: Double, assaisonement: Bool, coeffMultip : Int){
+        self.id = id
         self.personnel = personnel
         self.fluide = fluide
         self.assaisonement = assaisonement
         self.coeffMultip = coeffMultip
     }
     
-    
-    // Delegation
-   /* func add(delegate: coutDelegate) {
-       self.delegates.append(delegate)
-       print("add delegate : \(self.delegates.count) delagates now")
-    }
-    
-    func remove(delegate: coutDelegate) {
-       self.delegates.removeAll{ $0 === delegate}
-    }*/
     
 }

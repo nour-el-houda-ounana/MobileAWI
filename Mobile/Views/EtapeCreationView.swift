@@ -52,9 +52,7 @@ struct EtapeCreationView: View {
 
     var body: some View {
         NavigationView {
-            
             VStack {
-                if !autre {
                     //Lister les fiches existantes
                     List {
                         ForEach(Array(searchFiche.enumerated()), id: \.element.model.id){ index, item in
@@ -69,15 +67,6 @@ struct EtapeCreationView: View {
                         }
                     }
                     .searchable(text: $chercherFiche, prompt: "Chercher une fiche")
-                    
-                }
-                else {
-                    // Créer une nouvelle fiche qui sera ajoutée comme étape
-                    Text("Créate Etape")
-                }
-                
-
-                
             }
             .navigationTitle("➕ Ajouter une étape")
             .toolbar {
@@ -86,10 +75,11 @@ struct EtapeCreationView: View {
                         self.fiches.addEtapeToFiche(idFiche: index, etapes: etapes)
                     }
                 }
-                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Autre") {
                         autre = true
+                    }.alert("Pour Créer une autre étape \n veuillez créer une nouvelle fiche", isPresented: $autre) {
+                        Button("OK", role: .cancel) { }
                     }
                 }
             }

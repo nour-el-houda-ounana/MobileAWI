@@ -24,43 +24,42 @@ struct CoutsView : View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                VStack(alignment : .leading) {
-                    Text("Coût de personnel : \(personnel,specifier: "%.2f") €/h")
-                    Text("Coût de fluide : \(fluide,specifier: "%.2f") €/Kg")
-                    Text("Coefficient multiplicateur : \(coefficient)% ")
-                    Toggle(isOn: $activer) {
-                        Text("Coût d'assaisonement ( 5% ) ")
+            ForEach(Array(listeCouts.model.enumerated()), id: \.element.id) { index, item in
+                VStack {
+                    VStack(alignment : .leading) {
+                        Text("Coût de personnel : \(item.personnel,specifier: "%.2f") €/h")
+                        Text("Coût de fluide : \(item.fluide,specifier: "%.2f") €/h")
+                        Text("Coefficient multiplicateur : \(item.coeffMultip)% ")
+
+                        Toggle(isOn: $activer) {
+                            Text("Coût d'assaisonement ( 5% ) ")
+                        }
+                        .disabled(alwaysDisable == true)
                     }
-                    .disabled(alwaysDisable == true)
-                }
-                .padding(20)
-                    
-                Spacer().frame(height : 60)
+                    .padding(20)
                         
-                Button("Modifier"){
-                    //Modification
-                    update = true
-                    
-                }
-                .frame(width: 140, height: 30, alignment: .center)
-                .foregroundColor(.orange)
-                .background(.black)
-                .cornerRadius(16)
+                    Spacer().frame(height : 60)
+                            
+                    Button("Modifier"){
+                        //Modification
+                        update = true
                         
+                    }
+                    .frame(width: 140, height: 30, alignment: .center)
+                    .foregroundColor(.orange)
+                    .background(.black)
+                    .cornerRadius(16)
+                            
+                }
+                .navigationTitle("💰 Gestion des couts")
+                .sheet(isPresented: $update) {
+                    updateCoutView(listeCouts : listeCouts, index: index)
+                }
             }
-            .navigationTitle("💰 Gestion des couts")
-            .sheet(isPresented: $update) {
-                updateCoutView()
-            }
-                    
+        }.onAppear{
+            listeCouts.getCouts()
         }
-        .onAppear {
-            self.personnel = self.listeCouts.model[0].personnel
-            self.fluide = self.listeCouts.model[0].fluide
-            self.coefficient = self.listeCouts.model[0].coeffMultip
-            self.activer = self.listeCouts.model[0].assaisonement
-        }
+        
     }
 }
         

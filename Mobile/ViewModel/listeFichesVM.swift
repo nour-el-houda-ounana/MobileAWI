@@ -41,13 +41,18 @@ class listeFichesVM : ObservableObject, FicheDelegate {
     }
     
     
-    //Ajouter une étape à une fiche
+    //Ajouter une étape à une fiche et modifier le temps total de la fiche
     func addEtapeToFiche(idFiche : Int, etapes : [String]){
         for i in 0..<etapes.count {
             self.listeFichesVM[idFiche].model.etape.append(etapes[i])
         }
         // Update le modèle dans la BD
         self.listeFichesVM[idFiche].updateFiche()
+        let x = getFiches(tabetapes: etapes)
+        let t = getTimes(tab: x)
+        if t != 0 {
+            self.listeFichesVM[idFiche].updateTemps(temps: t)
+        }
     }
     
     func deleteFiche(idFiche: Int) {
@@ -81,16 +86,22 @@ class listeFichesVM : ObservableObject, FicheDelegate {
     // Get Fiches qui sont utilisés comme étape dans une autre fiche
     func getFiches(tabetapes : [String]) -> [FicheVM]{
         var tab : [FicheVM] = []
-
         for j in 0..<listeFichesVM.count {
             if tabetapes.contains(listeFichesVM[j].intitule) {
                 tab.append(listeFichesVM[j])
             }
         }
-        
         return tab
     }
     
+    //Get le temps total des étapes
+    func getTimes(tab : [FicheVM]) -> Int {
+        var total = 0
+        for j in 0..<tab.count {
+            total = total + tab[j].model.tempsTotal
+        }
+        return total
+    }
     
     //Delegate
     func changed(intitule: String) {

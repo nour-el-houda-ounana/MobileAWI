@@ -9,6 +9,7 @@ import Firebase
 import FirebaseFirestore
 import Combine
 import FirebaseFirestoreSwift
+import SwiftUI
 
 
 enum FicheVMIntent : CustomStringConvertible, Equatable {
@@ -112,11 +113,31 @@ class FicheVM : ObservableObject, FicheDelegate {
     }
     
     func updateTemps(temps : Int) {
+        let t = model.tempsTotal + temps
         if let documentId = model.id {
-            db.collection("Fiche").document(documentId).setData(["temps": temps], merge: true)
+            db.collection("Fiche").document(documentId).setData(["temps": t], merge: true)
         }
     }
     
+    @ObservedObject var cost = coutsVM()
+    
+    func calculCoutFluide() -> Double {
+        var x : Double = 0
+        let time = Double(self.model.tempsTotal) / Double(60)
+        for i in 0..<cost.model.count {
+            x = cost.model[i].fluide * time
+        }
+        return x
+    }
+    
+    func calculCoutPersonnel() -> Double {
+        var x : Double = 0
+        let time = Double(self.model.tempsTotal) / Double(60)
+        for i in 0..<cost.model.count {
+            x = cost.model[i].personnel * time
+        }
+        return x
+    }
     
     //delete Fiche
     func deleteFiche() {

@@ -47,7 +47,6 @@
 		6FA5398027D04D8E0011C76A /* updateCoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5397F27D04D8E0011C76A /* updateCoutView.swift */; };
 		6FA5398227D1749B0011C76A /* EtapeCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5398127D1749B0011C76A /* EtapeCreationView.swift */; };
 		6FA5398427D29D1A0011C76A /* UpdateFicheView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5398327D29D1A0011C76A /* UpdateFicheView.swift */; };
-		6FA5398727D2B4D00011C76A /* FicheVMIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5398627D2B4D00011C76A /* FicheVMIntent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,7 +107,6 @@
 		6FA5397F27D04D8E0011C76A /* updateCoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = updateCoutView.swift; sourceTree = "<group>"; };
 		6FA5398127D1749B0011C76A /* EtapeCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtapeCreationView.swift; sourceTree = "<group>"; };
 		6FA5398327D29D1A0011C76A /* UpdateFicheView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFicheView.swift; sourceTree = "<group>"; };
-		6FA5398627D2B4D00011C76A /* FicheVMIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FicheVMIntent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +160,6 @@
 		6F00E27B27CF6DA000B840AC /* Mobile */ = {
 			isa = PBXGroup;
 			children = (
-				6FA5398527D2B37B0011C76A /* Intent */,
 				6F00E2BE27CF72FB00B840AC /* GoogleService-Info.plist */,
 				6F00E2B627CF6FA500B840AC /* Views */,
 				6F00E2B527CF6F7500B840AC /* ViewModel */,
@@ -248,14 +245,6 @@
 				6FA5398327D29D1A0011C76A /* UpdateFicheView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		6FA5398527D2B37B0011C76A /* Intent */ = {
-			isa = PBXGroup;
-			children = (
-				6FA5398627D2B4D00011C76A /* FicheVMIntent.swift */,
-			);
-			path = Intent;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,7 +388,6 @@
 			files = (
 				6F00E2A827CF6E1F00B840AC /* ingredient.swift in Sources */,
 				6FA5398427D29D1A0011C76A /* UpdateFicheView.swift in Sources */,
-				6FA5398727D2B4D00011C76A /* FicheVMIntent.swift in Sources */,
 				6FA5398227D1749B0011C76A /* EtapeCreationView.swift in Sources */,
 				6F00E2D727CF7FFC00B840AC /* CoutsView.swift in Sources */,
 				6F00E2B027CF6EFD00B840AC /* FicheCat.swift in Sources */,

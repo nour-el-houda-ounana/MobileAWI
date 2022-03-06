@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct modifIngredView: View {
+struct UpdateIngredView: View {
     
     @ObservedObject
-    var ingreds = listeIngredsVM()
+    var ingreds : listeIngredsVM
     
-    var index : Int = 0
+    var index : Int
     
+   /* @ObservedObject
+    var ingVm : ingredVM*/
     
     @State
-    var nom : String = "";
+    var nom : String = ""
     
-    
-    @Environment(\.dismiss) var dismiss
     
     let formatter: NumberFormatter = {
        let formatter = NumberFormatter()
@@ -27,17 +27,15 @@ struct modifIngredView: View {
        return formatter
      }()
     
-    
     var body: some View {
         NavigationView {
                 Form {
                     Section(header: Text("Nom ingrédient")) {
-                        //Text("\(ingreds.liste[index].name)")
-                        TextField("nom", text: $nom)
-                            .onSubmit {
+                        TextField("nom", text: $ingreds.liste[index].name)
+                        //TextField("nom", text: $ingVm.name)
+                            /*.onSubmit {
                                 ingreds.liste[index].name = nom
-                                
-                            }
+                            }*/
                     }
                     
                     Section(header: Text("type allergene")) {
@@ -49,22 +47,20 @@ struct modifIngredView: View {
                         .pickerStyle(.menu)*/
                     }
                                       
-                    
                     Section(header: Text("Prix unitaire")) {
-                        Text("");
-                        
+                        //TextField("Prix Unitaire", value: $ingVm.PU, formatter :formatter)
                     }
                     
                     Section(header: Text("Quantité")) {
-                        Text("Quantité ajoutée")
+                        //TextField("Quantité ajoutée", value: $ingreds.liste[index].quantite, formatter: formatter)
                     }
                     
                     Section(header: Text("unité")) {
-                        Text("\(ingreds.liste[index].unite)")
+                        //Text("\(ingVm.unite)")
                     }
                 }
         }
-        .toolbar {
+        /*.toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
                     dismiss()
@@ -74,7 +70,7 @@ struct modifIngredView: View {
                 }
             }
             
-        }
+        }*/
         .padding()
         .navigationTitle("Modification")
         
@@ -83,6 +79,8 @@ struct modifIngredView: View {
 
 struct modifIngredView_Previews: PreviewProvider {
     static var previews: some View {
-        modifIngredView()
+       //let liste = listeIngredsVM()
+        //modifIngredView(ingreds: liste, index: 0)
+        Text("")
     }
 }

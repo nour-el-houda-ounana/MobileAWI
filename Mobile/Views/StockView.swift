@@ -28,7 +28,6 @@ struct StockView: View {
       return formatter
     }()
     
-    
     var body: some View {
         ScrollView {
            Image("stock")
@@ -70,67 +69,67 @@ struct StockView: View {
             Spacer().frame(height: 10)
             
             ForEach(Array(ingreds.liste.enumerated()), id: \.element.model.id){ index, item in
-                VStack {
-                    ZStack(alignment: .leading) {
-                        VStack(alignment: .leading){
-                            HStack {
+                    VStack {
+                        ZStack(alignment: .leading) {
+                            VStack(alignment: .leading){
+                                HStack {
                                     Button {
-                                        //déclencher modification
-                                        update = true
-                                            
-                                    } label: {
-                                        Image(systemName: "pencil")
-                                            .padding(10)
-                                            .foregroundColor(.white)
-                                            .background(.black)
-                                            .cornerRadius(50)
-                                    }
-                                    Button {
-                                        ingreds.delete(igVm :item)
-                                    } label: {
-                                        Image(systemName: "x.circle.fill")
-                                            .padding(10)
-                                            .foregroundColor(.white)
-                                            .background(.black)
-                                            .cornerRadius(50)
-                                    }
-                                Spacer().frame(width : 20)
-                                Text("\(item.model.categorie)").bold()
+                                            //déclencher modification
+                                            update = true
+                                        } label: {
+                                            Image(systemName: "pencil")
+                                                .padding(10)
+                                                .foregroundColor(.white)
+                                                .background(.black)
+                                                .cornerRadius(50)
+                                        }
+                                        Button {
+                                            item.delete()
+                                        } label: {
+                                            Image(systemName: "x.circle.fill")
+                                                .padding(10)
+                                                .foregroundColor(.white)
+                                                .background(.black)
+                                                .cornerRadius(50)
+                                        }
                                     
-                            }
-                            VStack(alignment : .leading) {
-                                if(item.model.allergene == true){
-                                    Text("\(item.model.nom) *").font(.title)
-                                    
-                                }else {
-                                    Text("\(item.model.nom)").font(.title)
+                                    Spacer().frame(width : 20)
+                                    Text("\(item.model.categorie)").bold()
                                 }
                                 
-                                Spacer().frame(width:10)
-                                Text("Quantité : \(item.model.quantite) \(item.model.unite)")
-                                Text("PU : \(item.model.PU) euros")
-                                if(item.model.allergene.description == "true"){
-                                    Text("Type Allergene : \(item.model.typeAllergene)").bold().foregroundColor(.red)
+                                VStack(alignment : .leading) {
+                                    if(item.model.allergene == true){
+                                        Text("\(item.model.nom) *").font(.title)
+                                    }else {
+                                        Text("\(item.model.nom)").font(.title)
+                                    }
+                                    
+                                    Spacer().frame(width:10)
+                                    Text("Quantité : \(item.model.quantite) \(item.model.unite)")
+                                    Text("PU : \(item.model.PU) euros")
+                                    if(item.model.allergene.description == "true"){
+                                        Text("Type Allergene : \(item.model.typeAllergene)").bold().foregroundColor(.red)
+                                    }
                                 }
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 125))
+                                
+                                }
+                                Spacer()
                             }
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 125))
-                            
-                            }
-                            Spacer()
-
-                        }
-                        .padding(12)
-                        .frame(width : UIScreen.main.bounds.width-15)
-                        .background(.gray)
-                        .cornerRadius(20)
+                            .padding(12)
+                            .frame(width : UIScreen.main.bounds.width-15)
+                            .background(.gray)
+                            .cornerRadius(20)
+                        
                     }
                     .sheet(isPresented: $update) {
-                        modifIngredView(ingreds: ingreds, index: index)
+                        UpdateIngredView(ingreds: ingreds, index: index)
                     }
             }
             .onAppear() {
-                self.ingreds.getIngreds()
+                self.ingreds.fetchData()
             }
+            
             
         }
         .ignoresSafeArea(.container, edges: .top)

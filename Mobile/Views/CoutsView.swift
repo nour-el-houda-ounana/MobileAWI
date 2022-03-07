@@ -20,7 +20,7 @@ struct CoutsView : View {
     
     var alwaysDisable : Bool = true
     
-    @State var update = false
+    @State var update = true
     
     var body: some View {
         NavigationView {

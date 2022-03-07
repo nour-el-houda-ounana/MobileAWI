@@ -12,6 +12,8 @@ struct loginView: View {
     @State private var email = ""
     @State private var password = ""
     
+    @EnvironmentObject var logVM : loginVM
+    
     var body: some View {
 
         ZStack {
@@ -45,7 +47,15 @@ struct loginView: View {
                 
                 Spacer().frame(height: 40)
                 
-                Button(action: {}) {
+                Button(action: {
+                    
+                    guard !email.isEmpty , !password.isEmpty else {
+                        return
+                    }
+                    
+                    logVM.logIn(email: email, mdp: password)
+                    
+                }) {
                   Text("Se connecter")
                     .font(.headline)
                     .foregroundColor(.white)

@@ -8,39 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var logVM : loginVM
+
     var body: some View {
-        TabView {
-            HomeView()
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                }
-
-            CategoriesView()
-                .tabItem {
-                    Label("Catégories", systemImage: "list.star")
-                }
-
-           CreateFicheView()
-                .tabItem {
-                    Label("Nouveau", systemImage: "plus")
-                }
-
-            StockView()
-                .tabItem {
-                    Label("Stock", systemImage: "bag.fill")
-                }
-                        
-           CoutsView()
-                .tabItem{
-                    Label("Couts", systemImage: "eurosign.circle")
-                }
+            /*if logVM.logged {
+                AppTabView()
+            }else{
+                loginView()
+            }*/
             
-            CommandeView()
-                .tabItem{
-                    Label("Commande", systemImage: "barcode.viewfinder")
-                }
-
-        }
+            AppTabView()
+            
+            
         
     }
 }

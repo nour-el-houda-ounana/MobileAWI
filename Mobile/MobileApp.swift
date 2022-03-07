@@ -16,7 +16,10 @@ struct MobileApp: App {
     
     var body: some Scene {
         WindowGroup {
+            let loginVM = loginVM()
             ContentView()
+                .environmentObject(loginVM)
         }
     }
 }
+
